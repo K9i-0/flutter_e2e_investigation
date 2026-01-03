@@ -1,0 +1,41 @@
+appId: ${APP_ID}
+---
+# Test: Delete a Todo
+# This test verifies that users can delete a todo item
+
+- launchApp:
+    clearState: true
+
+- assertVisible: "TODO"
+
+# Create a todo first
+- tapOn:
+    id: "todo-fab-add"
+- tapOn:
+    id: "title-field"
+- inputText: "Todo to delete"
+- tapOn:
+    id: "save-button"
+
+# Verify todo is created
+- assertVisible:
+    text: ".*Todo to delete.*"
+
+# Tap on the todo to open edit screen
+- tapOn:
+    text: ".*Todo to delete.*"
+
+# Tap delete button
+- tapOn:
+    id: "delete-button"
+
+# Confirm deletion in dialog
+- tapOn: "Delete"
+
+# Verify we're back on main screen and todo is gone
+- assertVisible: "TODO"
+- assertNotVisible:
+    text: ".*Todo to delete.*"
+
+# Verify empty state message is shown
+- assertVisible: "All caught up!"

@@ -1,0 +1,46 @@
+appId: ${APP_ID}
+---
+# Test: Create a new Todo
+
+- launchApp:
+    clearState: true
+
+# Verify main screen
+- assertVisible: "TODO"
+
+# Tap FAB to create new todo
+- tapOn:
+    id: "todo-fab-add"
+
+# Wait for edit screen to load
+- assertVisible: "New Task"
+
+# Enter todo title
+- tapOn:
+    id: "title-field"
+- inputText: "Buy groceries"
+
+# Enter description
+- tapOn:
+    id: "description-field"
+- inputText: "Get milk and bread"
+
+# Select a category (Work)
+- tapOn: "Work"
+
+# Hide keyboard and scroll to save button
+- hideKeyboard
+- scrollUntilVisible:
+    element:
+      id: "save-button"
+    direction: DOWN
+    timeout: 10000
+
+# Save the todo
+- tapOn:
+    id: "save-button"
+
+# Verify we're back on the main screen and the todo is visible
+- assertVisible: "TODO"
+- assertVisible:
+    text: ".*Buy groceries.*"

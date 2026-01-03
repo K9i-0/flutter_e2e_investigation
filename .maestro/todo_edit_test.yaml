@@ -1,0 +1,55 @@
+appId: ${APP_ID}
+---
+# Test: Edit an existing Todo
+# This test verifies that users can edit a todo's title and description
+
+- launchApp:
+    clearState: true
+
+- assertVisible: "TODO"
+
+# Create a todo first
+- tapOn:
+    id: "todo-fab-add"
+- tapOn:
+    id: "title-field"
+- inputText: "Original title"
+- tapOn:
+    id: "description-field"
+- inputText: "Original description"
+- tapOn:
+    id: "save-button"
+
+# Verify todo is created
+- assertVisible:
+    text: ".*Original title.*"
+
+# Tap on the todo to edit it
+- tapOn:
+    text: ".*Original title.*"
+
+# Verify we're on the edit screen
+- assertVisible: "Edit Task"
+
+# Clear and update the title
+- tapOn:
+    id: "title-field"
+- eraseText: 14
+- inputText: "Updated title"
+
+# Clear and update the description
+- tapOn:
+    id: "description-field"
+- eraseText: 20
+- inputText: "Updated description"
+
+# Change category to Personal
+- tapOn: "Personal"
+
+# Save changes
+- tapOn:
+    id: "save-button"
+
+# Verify the updated todo is visible
+- assertVisible:
+    text: ".*Updated title.*"

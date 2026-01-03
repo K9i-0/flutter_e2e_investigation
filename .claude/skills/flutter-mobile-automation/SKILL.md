@@ -1,13 +1,15 @@
 ---
-name: flutter-e2e-testing
+name: flutter-mobile-automation
 description: FlutterアプリのE2Eテストとモバイル自動化の知見。Maestro、Mobile MCP、Dart MCPを使用したテスト作成・実行時に使用。
 ---
 
-# Flutter E2E Testing
+# Flutter Mobile Automation
+
+E2Eテスト自動化と開発ワークフロー自動化の両方をカバー。
 
 ## 推奨構成: Maestro MCP + Dart MCP
 
-FlutterアプリのE2Eテストと自動化には **Maestro MCP + Dart MCP** の組み合わせが最適。
+FlutterアプリのE2Eテストと開発自動化には **Maestro MCP + Dart MCP** の組み合わせが最適。
 
 ## ツール概要
 
@@ -28,6 +30,95 @@ FlutterアプリのE2Eテストと自動化には **Maestro MCP + Dart MCP** の
 ### Mobile MCP（参考）
 - Maestro MCPで代替可能なため通常は不要
 - 座標ベースの操作が必要な特殊ケースでのみ使用
+
+## Maestro CLI プラットフォーム選択
+
+### 推奨: iOSシミュレーター
+
+Maestro CLIは**iOSシミュレーター**での実行を推奨。
+
+| プラットフォーム | launchApp | 安定性 | 備考 |
+|---|---|---|---|
+| **iOS 18.x** | ✅ | ⭐⭐⭐ | 推奨 |
+| Android API 30 | ⚠️ | ⭐ | 初回のみ動作、以降不安定 |
+| Android API 34+ | ❌ | - | TCP forwarding / timeout エラー |
+
+### 既知の問題（Maestro 2.0.10）
+
+- [Issue #2839](https://github.com/mobile-dev-inc/Maestro/issues/2839): launchAppが最初の1回しか動作しない
+- [Issue #1927](https://github.com/mobile-dev-inc/maestro/issues/1927): Maestro Studio起動中はlaunchApp失敗
+
+### iOS E2Eテスト実行
+
+```bash
+# iOSシミュレーター起動
+xcrun simctl boot "iPhone 16 Pro"
+
+# iOSアプリビルド・インストール
+flutter build ios --simulator
+xcrun simctl install booted build/ios/iphonesimulator/Runner.app
+
+# テスト実行（タイムアウト増加推奨）
+MAESTRO_DRIVER_STARTUP_TIMEOUT=120000 \
+maestro --device "<DEVICE_ID>" \
+  test -e APP_ID=com.example.flutterE2eInvestigation \
+  .maestro/test.yaml
+```
+
+### Bundle ID の違い
+
+iOS/Androidでbundle IDが異なる場合、環境変数で切り替え：
+
+```yaml
+# .maestro/test.yaml
+appId: ${APP_ID}
+---
+- launchApp:
+    clearState: true
+```
+
+```bash
+# iOS
+maestro test -e APP_ID=com.example.flutterE2eInvestigation .maestro/test.yaml
+
+# Android
+maestro test -e APP_ID=com.example.flutter_e2e_investigation .maestro/test.yaml
+```
+
+## Flutterビルドモードの使い分け
+
+### ビルドモード比較
+
+| モード | 用途 | ホットリロード | パフォーマンス |
+|--------|------|---------------|---------------|
+| **debug** | 機能開発・iOSテスト | ✅ | 低速 |
+| **profile** | パフォーマンス計測 | ❌ | 高速 |
+| **release** | 本番 | ❌ | 最速 |
+
+### ビルドコマンド
+
+```bash
+# 機能開発用・iOSテスト（debug）
+flutter run
+flutter build ios --simulator
+
+# パフォーマンス計測（profile）- Androidのみ
+flutter build apk --profile
+
+# 本番用（release）
+flutter build apk --release
+flutter build ios --release
+```
+
+### ワークフロー推奨
+
+```
+開発中:
+  debug ビルド → Dart MCP で起動 → hot reload で変更反映
+
+E2Eテスト:
+  iOS シミュレーター → debug ビルド → Maestro CLI でテスト実行
+```
 
 ## Maestro + Flutter ベストプラクティス
 

@@ -1,0 +1,75 @@
+appId: ${APP_ID}
+---
+# Test: Search functionality
+# This test verifies that search filtering works correctly
+
+- launchApp:
+    clearState: true
+
+- assertVisible: "TODO"
+
+# Create multiple todos
+- tapOn:
+    id: "todo-fab-add"
+- tapOn:
+    id: "title-field"
+- inputText: "Buy milk"
+- tapOn:
+    id: "save-button"
+
+- tapOn:
+    id: "todo-fab-add"
+- tapOn:
+    id: "title-field"
+- inputText: "Buy bread"
+- tapOn:
+    id: "save-button"
+
+- tapOn:
+    id: "todo-fab-add"
+- tapOn:
+    id: "title-field"
+- inputText: "Call doctor"
+- tapOn:
+    id: "save-button"
+
+# Verify all todos are visible
+- assertVisible:
+    text: ".*Buy milk.*"
+- assertVisible:
+    text: ".*Buy bread.*"
+- assertVisible:
+    text: ".*Call doctor.*"
+
+# Search for "Buy"
+- tapOn:
+    id: "search-field"
+- inputText: "Buy"
+
+# Verify only matching todos are visible
+- assertVisible:
+    text: ".*Buy milk.*"
+- assertVisible:
+    text: ".*Buy bread.*"
+- assertNotVisible:
+    text: ".*Call doctor.*"
+
+# Clear search
+- eraseText: 3
+
+# Verify all todos are visible again
+- assertVisible:
+    text: ".*Buy milk.*"
+- assertVisible:
+    text: ".*Buy bread.*"
+- assertVisible:
+    text: ".*Call doctor.*"
+
+# Search for specific todo
+- inputText: "doctor"
+- assertVisible:
+    text: ".*Call doctor.*"
+- assertNotVisible:
+    text: ".*Buy milk.*"
+- assertNotVisible:
+    text: ".*Buy bread.*"

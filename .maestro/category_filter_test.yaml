@@ -1,0 +1,75 @@
+appId: ${APP_ID}
+---
+# Test: Category filtering
+# This test verifies that category filter chips work correctly
+
+- launchApp:
+    clearState: true
+
+- assertVisible: "TODO"
+
+# Create todos with different categories
+# Todo 1: Work category
+- tapOn:
+    id: "todo-fab-add"
+- tapOn:
+    id: "title-field"
+- inputText: "Work task"
+- tapOn: "Work"
+- tapOn:
+    id: "save-button"
+
+# Todo 2: Personal category
+- tapOn:
+    id: "todo-fab-add"
+- tapOn:
+    id: "title-field"
+- inputText: "Personal task"
+- tapOn: "Personal"
+- tapOn:
+    id: "save-button"
+
+# Todo 3: Shopping category
+- tapOn:
+    id: "todo-fab-add"
+- tapOn:
+    id: "title-field"
+- inputText: "Shopping task"
+- tapOn: "Shopping"
+- tapOn:
+    id: "save-button"
+
+# Verify all todos are visible
+- assertVisible:
+    text: ".*Work task.*"
+- assertVisible:
+    text: ".*Personal task.*"
+- assertVisible:
+    text: ".*Shopping task.*"
+
+# Filter by Work category
+- tapOn: "Work"
+- assertVisible:
+    text: ".*Work task.*"
+- assertNotVisible:
+    text: ".*Personal task.*"
+- assertNotVisible:
+    text: ".*Shopping task.*"
+
+# Filter by Personal category
+- tapOn: "Personal"
+- assertVisible:
+    text: ".*Personal task.*"
+- assertNotVisible:
+    text: ".*Work task.*"
+- assertNotVisible:
+    text: ".*Shopping task.*"
+
+# Show all (tap All chip)
+- tapOn: "All"
+- assertVisible:
+    text: ".*Work task.*"
+- assertVisible:
+    text: ".*Personal task.*"
+- assertVisible:
+    text: ".*Shopping task.*"

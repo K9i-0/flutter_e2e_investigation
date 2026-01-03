@@ -1,0 +1,6 @@
+appId: ${APP_ID}
+---
+# Simple test: launch the app with clearState
+- launchApp:
+    clearState: true
+- assertVisible: "TODO"

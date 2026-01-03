@@ -1,0 +1,47 @@
+appId: ${APP_ID}
+---
+# Test: Complete a Todo
+# This test verifies that users can mark a todo as complete
+
+- launchApp:
+    clearState: true
+
+- assertVisible: "TODO"
+
+# Create a todo first
+- tapOn:
+    id: "todo-fab-add"
+- tapOn:
+    id: "title-field"
+- inputText: "Task to complete"
+- tapOn:
+    id: "save-button"
+
+# Verify todo is created
+- assertVisible:
+    text: ".*Task to complete.*"
+
+# Tap on the todo to toggle completion
+# The checkbox has an accessibility label that includes the todo title
+- tapOn:
+    text: "Mark Task to complete.*"
+
+# Verify the todo is still visible (showCompleted is true by default)
+- assertVisible:
+    text: ".*Task to complete.*"
+
+# Toggle show completed off
+- tapOn:
+    id: "toggle-completed"
+
+# The completed todo should now be hidden
+- assertNotVisible:
+    text: ".*Task to complete.*"
+
+# Toggle show completed back on
+- tapOn:
+    id: "toggle-completed"
+
+# The completed todo should be visible again
+- assertVisible:
+    text: ".*Task to complete.*"

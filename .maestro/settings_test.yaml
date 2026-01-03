@@ -1,0 +1,61 @@
+appId: ${APP_ID}
+---
+# Test: Settings screen functionality
+# This test verifies settings can be changed
+
+- launchApp:
+    clearState: true
+
+- assertVisible: "TODO"
+
+# Navigate to settings
+- tapOn:
+    id: "settings-button"
+
+# Verify settings screen is shown (Japanese locale by default)
+- assertVisible:
+    id: "language-selector"
+- assertVisible:
+    id: "theme-selector"
+- assertVisible:
+    id: "sort-selector"
+
+# Test language change to English
+- tapOn:
+    id: "language-selector"
+- tapOn: "English"
+
+# Verify UI is now in English
+- assertVisible: "Settings"
+- assertVisible: "Language"
+- assertVisible: "Theme"
+
+# Test theme change to Dark
+- tapOn:
+    id: "theme-selector"
+- tapOn: "Dark"
+
+# Test sort order change
+- tapOn:
+    id: "sort-selector"
+- tapOn: "Due Date"
+
+# Test show completed toggle
+- tapOn:
+    id: "show-completed-toggle"
+
+# Go back to main screen
+- tapOn:
+    id: "settings-back-button"
+
+# Verify we're back on main screen
+- assertVisible: "TODO"
+
+# Navigate back to settings to verify persistence
+- tapOn:
+    id: "settings-button"
+
+# Verify settings are persisted
+- assertVisible: "English"
+- assertVisible: "Dark"
+- assertVisible: "Due Date"
