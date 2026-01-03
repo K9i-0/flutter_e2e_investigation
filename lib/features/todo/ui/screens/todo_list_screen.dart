@@ -189,6 +189,7 @@ class _TodoListScreenState extends ConsumerState<TodoListScreen> {
                       );
 
                       return TweenAnimationBuilder<double>(
+                        key: ValueKey(todo.id),
                         tween: Tween(begin: 0, end: 1),
                         duration: Duration(milliseconds: 300 + (index * 50)),
                         curve: Curves.easeOutCubic,
