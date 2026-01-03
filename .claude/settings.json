@@ -4,16 +4,13 @@
       "Bash(cat:*)",
       "Bash(ls:*)",
       "Bash(tree:*)",
-
       "Bash(flutter:*)",
       "Bash(dart:*)",
       "Bash(dart run build_runner:*)",
-
       "Bash(adb:*)",
       "Bash(xcrun simctl:*)",
       "Bash(maestro:*)",
-      "Bash(MAESTRO_DRIVER_STARTUP_TIMEOUT=* maestro:*)",
-
+      "Bash(MAESTRO_DRIVER_STARTUP_TIMEOUT=:* maestro:*)",
       "Bash(git status:*)",
       "Bash(git diff:*)",
       "Bash(git log:*)",
@@ -22,12 +19,10 @@
       "Bash(git commit:*)",
       "Bash(git push:*)",
       "Bash(gh:*)",
-
       "WebSearch",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:docs.maestro.dev)",
       "WebFetch(domain:pub.dev)",
-
       "mcp__dart-mcp__list_devices",
       "mcp__dart-mcp__launch_app",
       "mcp__dart-mcp__connect_dart_tooling_daemon",
@@ -42,7 +37,6 @@
       "mcp__dart-mcp__pub",
       "mcp__dart-mcp__pub_dev_search",
       "mcp__dart-mcp__analyze_files",
-
       "mcp__maestro__cheat_sheet",
       "mcp__maestro__list_devices",
       "mcp__maestro__take_screenshot",
