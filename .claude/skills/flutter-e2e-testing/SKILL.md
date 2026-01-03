@@ -308,6 +308,58 @@ element_num,bounds,attributes
 
 この情報だけで要素の存在確認と操作が可能。
 
+## 開発フロー
+
+### 機能実装の流れ
+
+```
+1. 計画（Plan Mode）
+   - EnterPlanMode で設計開始
+   - 不明点は AskUserQuestion で確認
+   - 計画ファイルに実装詳細を記述
+   - ExitPlanMode で承認を得る
+
+2. 実装
+   - TodoWrite でタスク分解・進捗管理
+   - 1タスク完了ごとに completed に更新
+   - コード変更は最小限に
+
+3. E2Eテスト
+   - Dart MCP: アプリ起動・DTD接続
+   - Maestro MCP: inspect_view_hierarchy で状態確認（軽量）
+   - Maestro MCP: tap_on / input_text で操作
+   - Maestro MCP: take_screenshot で視覚確認（必要時のみ）
+
+4. コミット・プッシュ
+   - Conventional Commits 形式
+   - 機能単位でコミット
+   - 適切なタイミングでプッシュ
+```
+
+### E2Eテスト時の状態確認パターン
+
+```
+✅ 推奨フロー:
+   hierarchy → 操作 → hierarchy → 操作 → ... → screenshot（最終確認）
+
+❌ 非効率フロー:
+   screenshot → 操作 → screenshot → 操作 → ...
+```
+
+### Git運用
+
+```bash
+# コミット
+git add -A && git commit -m "type(scope): description"
+
+# プッシュ
+git push
+
+# リモート設定（初回のみ）
+git remote add origin git@github.com:USER/REPO.git
+git push -u origin main
+```
+
 ## 参考リンク
 
 - [Maestro Flutter Testing](https://docs.maestro.dev/platform-support/flutter)
