@@ -31,6 +31,70 @@ FlutterアプリのE2Eテストと開発自動化には **Maestro MCP + Dart MCP
 - Maestro MCPで代替可能なため通常は不要
 - 座標ベースの操作が必要な特殊ケースでのみ使用
 
+## Claude Code セットアップ
+
+### 推奨設定（.claude/settings.json）
+
+プロジェクト共通の許可設定はリポジトリに含めて共有：
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Bash(flutter:*)",
+      "Bash(dart:*)",
+      "Bash(adb:*)",
+      "Bash(xcrun simctl:*)",
+      "Bash(maestro:*)",
+      "Bash(MAESTRO_DRIVER_STARTUP_TIMEOUT=* maestro:*)",
+      "Bash(git:*)",
+      "Bash(gh:*)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:docs.maestro.dev)",
+      "mcp__dart-mcp__*",
+      "mcp__maestro__*"
+    ]
+  }
+}
+```
+
+### ローカル設定（.claude/settings.local.json）
+
+ユーザー固有の設定は`.gitignore`に追加してローカルのみ：
+
+```json
+{
+  "permissions": {
+    "additionalDirectories": [
+      "/Users/<user>/.maestro/tests"
+    ]
+  }
+}
+```
+
+### Maestroテスト出力ディレクトリ
+
+Maestro CLIはテスト結果を`~/.maestro/tests/`に出力する。
+Claude Codeでエラーログを確認するには、このディレクトリを追加：
+
+```bash
+# Claude Codeで以下を実行
+/add-dir ~/.maestro/tests
+```
+
+または`.claude/settings.local.json`に追加：
+
+```json
+{
+  "permissions": {
+    "additionalDirectories": [
+      "/Users/<user>/.maestro/tests"
+    ]
+  }
+}
+```
+
 ## Maestro CLI プラットフォーム選択
 
 ### 推奨: iOSシミュレーター
