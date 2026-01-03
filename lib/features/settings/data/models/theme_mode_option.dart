@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+@JsonEnum()
 enum ThemeModeOption {
   light,
   dark,
@@ -14,14 +16,5 @@ enum ThemeModeOption {
       case ThemeModeOption.system:
         return ThemeMode.system;
     }
-  }
-
-  String toJson() => name;
-
-  static ThemeModeOption fromJson(String json) {
-    return ThemeModeOption.values.firstWhere(
-      (e) => e.name == json,
-      orElse: () => ThemeModeOption.system,
-    );
   }
 }

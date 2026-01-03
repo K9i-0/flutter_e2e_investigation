@@ -82,7 +82,6 @@ class TodosNotifier extends AsyncNotifier<List<Todo>> {
     final updatedTodo = todo.copyWith(
       updatedAt: DateTime.now(),
       imagePath: finalImagePath,
-      clearImagePath: removeImage,
     );
 
     final newTodos = currentTodos.map((t) {

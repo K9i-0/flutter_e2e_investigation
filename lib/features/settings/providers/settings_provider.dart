@@ -45,10 +45,7 @@ class SettingsNotifier extends AsyncNotifier<AppSettings> {
 
   Future<void> updateDefaultCategoryId(String? categoryId) async {
     final current = state.value ?? const AppSettings();
-    final updated = current.copyWith(
-      defaultCategoryId: categoryId,
-      clearDefaultCategoryId: categoryId == null,
-    );
+    final updated = current.copyWith(defaultCategoryId: categoryId);
     await _saveAndUpdate(updated);
   }
 
