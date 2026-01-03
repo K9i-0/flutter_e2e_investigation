@@ -29,12 +29,15 @@ class _TodoListScreenState extends ConsumerState<TodoListScreen> {
     super.dispose();
   }
 
-  void _navigateToEdit(BuildContext context, {dynamic todo}) {
+  void _navigateToEdit(BuildContext context, {dynamic todo, String? initialCategoryId}) {
     Navigator.of(context).push(
       PageRouteBuilder(
         transitionDuration: const Duration(milliseconds: 300),
         reverseTransitionDuration: const Duration(milliseconds: 250),
-        pageBuilder: (_, __, ___) => TodoEditScreen(todo: todo),
+        pageBuilder: (_, __, ___) => TodoEditScreen(
+          todo: todo,
+          initialCategoryId: initialCategoryId,
+        ),
         transitionsBuilder: (_, animation, __, child) {
           return FadeTransition(
             opacity: animation,
@@ -249,7 +252,10 @@ class _TodoListScreenState extends ConsumerState<TodoListScreen> {
         identifier: 'todo-fab-add',
         label: 'Add new todo',
         child: FloatingActionButton.extended(
-          onPressed: () => _navigateToEdit(context),
+          onPressed: () => _navigateToEdit(
+            context,
+            initialCategoryId: selectedCategoryId,
+          ),
           icon: const Icon(Icons.add_rounded),
           label: const Text('New Task'),
         ),

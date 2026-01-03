@@ -8,9 +8,10 @@ import '../../providers/todo_provider.dart';
 import '../widgets/image_attachment_field.dart';
 
 class TodoEditScreen extends ConsumerStatefulWidget {
-  const TodoEditScreen({super.key, this.todo});
+  const TodoEditScreen({super.key, this.todo, this.initialCategoryId});
 
   final Todo? todo;
+  final String? initialCategoryId;
 
   @override
   ConsumerState<TodoEditScreen> createState() => _TodoEditScreenState();
@@ -34,8 +35,9 @@ class _TodoEditScreenState extends ConsumerState<TodoEditScreen> {
     _titleController = TextEditingController(text: widget.todo?.title ?? '');
     _descriptionController =
         TextEditingController(text: widget.todo?.description ?? '');
-    // Use default category from settings for new todos
+    // Priority: existing todo's category > initialCategoryId > default from settings
     _selectedCategoryId = widget.todo?.categoryId ??
+        widget.initialCategoryId ??
         ref.read(defaultCategoryIdProvider);
     _dueDate = widget.todo?.dueDate;
     _imagePath = widget.todo?.imagePath;
