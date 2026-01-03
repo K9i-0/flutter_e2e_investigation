@@ -1,0 +1,170 @@
+{
+  "@@locale": "ja",
+
+  "appTitle": "Todo",
+
+  "myTasks": "マイタスク",
+
+  "searchTasks": "タスクを検索...",
+
+  "newTask": "新規タスク",
+
+  "editTask": "タスクを編集",
+
+  "title": "タイトル",
+
+  "titleHint": "何をする必要がありますか？",
+
+  "titleRequired": "タイトルを入力してください",
+
+  "description": "説明",
+
+  "descriptionHint": "詳細を追加...",
+
+  "category": "カテゴリ",
+
+  "categoryNone": "なし",
+
+  "categoryWork": "仕事",
+
+  "categoryPersonal": "プライベート",
+
+  "categoryShopping": "買い物",
+
+  "categoryHealth": "健康",
+
+  "dueDate": "期限",
+
+  "noDueDate": "期限なし",
+
+  "attachment": "添付ファイル",
+
+  "tapToAddImage": "タップして画像を追加",
+
+  "addImage": "画像を追加",
+
+  "takePhoto": "写真を撮る",
+
+  "takePhotoDescription": "カメラで画像を撮影",
+
+  "chooseFromGallery": "ギャラリーから選択",
+
+  "chooseFromGalleryDescription": "既存の画像を選択",
+
+  "createTask": "タスクを作成",
+
+  "updateTask": "タスクを更新",
+
+  "deleteTodo": "Todoを削除",
+
+  "deleteTodoConfirmation": "このTodoを削除してもよろしいですか？",
+
+  "cancel": "キャンセル",
+
+  "delete": "削除",
+
+  "save": "保存",
+
+  "all": "すべて",
+
+  "active": "未完了",
+
+  "completed": "完了",
+
+  "showCompleted": "完了を表示",
+
+  "hideCompleted": "完了を非表示",
+
+  "noTasks": "タスクがありません",
+
+  "noTasksDescription": "+ をタップして最初のタスクを追加",
+
+  "today": "今日",
+
+  "tomorrow": "明日",
+
+  "yesterday": "昨日",
+
+  "inDays": "{count}日後",
+  "@inDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "daysAgo": "{count}日前",
+  "@daysAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "settings": "設定",
+
+  "language": "言語",
+
+  "languageEnglish": "English",
+
+  "languageJapanese": "日本語",
+
+  "theme": "テーマ",
+
+  "themeLight": "ライト",
+
+  "themeDark": "ダーク",
+
+  "themeSystem": "システム",
+
+  "appearance": "外観",
+
+  "defaults": "デフォルト設定",
+
+  "sortOrder": "並び順",
+
+  "sortByCreatedAt": "作成日",
+
+  "sortByDueDate": "期限",
+
+  "sortByName": "名前",
+
+  "showCompletedTasks": "完了タスクを表示",
+
+  "defaultCategory": "デフォルトカテゴリ",
+
+  "dataManagement": "データ管理",
+
+  "deleteCompletedTasks": "完了タスクを削除",
+
+  "deleteCompletedTasksDescription": "すべての完了タスクを削除",
+
+  "deleteCompletedConfirmation": "すべての完了タスクを削除しますか？この操作は取り消せません。",
+
+  "clearAllData": "すべてのデータを削除",
+
+  "clearAllDataDescription": "すべてのタスクと設定をリセット",
+
+  "clearAllDataConfirmation": "すべてのデータを削除しますか？すべてのタスクが削除され、設定がリセットされます。この操作は取り消せません。",
+
+  "about": "アプリについて",
+
+  "version": "バージョン",
+
+  "licenses": "ライセンス",
+
+  "licensesDescription": "オープンソースライセンスを表示",
+
+  "tasksDeleted": "{count}件の完了タスクを削除しました",
+  "@tasksDeleted": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "dataCleared": "すべてのデータを削除しました"
+}

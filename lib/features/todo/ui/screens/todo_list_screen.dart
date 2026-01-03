@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../settings/providers/settings_provider.dart';
+import '../../../settings/ui/screens/settings_screen.dart';
 import '../../data/models/category.dart';
 import '../../providers/category_provider.dart';
 import '../../providers/filter_provider.dart';
@@ -95,10 +97,29 @@ class _TodoListScreenState extends ConsumerState<TodoListScreen> {
                         ),
                       ),
                       onPressed: () {
-                        ref.read(showCompletedProvider.notifier).state =
-                            !showCompleted;
+                        ref
+                            .read(settingsProvider.notifier)
+                            .updateShowCompleted(!showCompleted);
                       },
                       tooltip: showCompleted ? 'Hide completed' : 'Show completed',
+                    ),
+                  ),
+                  Semantics(
+                    identifier: 'settings-button',
+                    label: 'Settings',
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.settings_outlined,
+                        color: theme.colorScheme.outline,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const SettingsScreen(),
+                          ),
+                        );
+                      },
+                      tooltip: 'Settings',
                     ),
                   ),
                 ],

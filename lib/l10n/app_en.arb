@@ -1,0 +1,383 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "Todo",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+
+  "myTasks": "My Tasks",
+  "@myTasks": {
+    "description": "Header for the task list"
+  },
+
+  "searchTasks": "Search tasks...",
+  "@searchTasks": {
+    "description": "Placeholder for search field"
+  },
+
+  "newTask": "New Task",
+  "@newTask": {
+    "description": "Title for new task screen"
+  },
+
+  "editTask": "Edit Task",
+  "@editTask": {
+    "description": "Title for edit task screen"
+  },
+
+  "title": "Title",
+  "@title": {
+    "description": "Label for title field"
+  },
+
+  "titleHint": "What needs to be done?",
+  "@titleHint": {
+    "description": "Hint text for title field"
+  },
+
+  "titleRequired": "Please enter a title",
+  "@titleRequired": {
+    "description": "Validation message for empty title"
+  },
+
+  "description": "Description",
+  "@description": {
+    "description": "Label for description field"
+  },
+
+  "descriptionHint": "Add some details...",
+  "@descriptionHint": {
+    "description": "Hint text for description field"
+  },
+
+  "category": "Category",
+  "@category": {
+    "description": "Label for category selection"
+  },
+
+  "categoryNone": "None",
+  "@categoryNone": {
+    "description": "Option for no category"
+  },
+
+  "categoryWork": "Work",
+  "@categoryWork": {
+    "description": "Work category name"
+  },
+
+  "categoryPersonal": "Personal",
+  "@categoryPersonal": {
+    "description": "Personal category name"
+  },
+
+  "categoryShopping": "Shopping",
+  "@categoryShopping": {
+    "description": "Shopping category name"
+  },
+
+  "categoryHealth": "Health",
+  "@categoryHealth": {
+    "description": "Health category name"
+  },
+
+  "dueDate": "Due Date",
+  "@dueDate": {
+    "description": "Label for due date picker"
+  },
+
+  "noDueDate": "No due date",
+  "@noDueDate": {
+    "description": "Text when no due date is set"
+  },
+
+  "attachment": "Attachment",
+  "@attachment": {
+    "description": "Label for image attachment"
+  },
+
+  "tapToAddImage": "Tap to add image",
+  "@tapToAddImage": {
+    "description": "Placeholder text for image attachment"
+  },
+
+  "addImage": "Add Image",
+  "@addImage": {
+    "description": "Title for image source dialog"
+  },
+
+  "takePhoto": "Take Photo",
+  "@takePhoto": {
+    "description": "Option to take photo"
+  },
+
+  "takePhotoDescription": "Use camera to capture an image",
+  "@takePhotoDescription": {
+    "description": "Description for take photo option"
+  },
+
+  "chooseFromGallery": "Choose from Gallery",
+  "@chooseFromGallery": {
+    "description": "Option to choose from gallery"
+  },
+
+  "chooseFromGalleryDescription": "Select an existing image",
+  "@chooseFromGalleryDescription": {
+    "description": "Description for gallery option"
+  },
+
+  "createTask": "Create Task",
+  "@createTask": {
+    "description": "Button text to create task"
+  },
+
+  "updateTask": "Update Task",
+  "@updateTask": {
+    "description": "Button text to update task"
+  },
+
+  "deleteTodo": "Delete Todo",
+  "@deleteTodo": {
+    "description": "Title for delete confirmation dialog"
+  },
+
+  "deleteTodoConfirmation": "Are you sure you want to delete this todo?",
+  "@deleteTodoConfirmation": {
+    "description": "Confirmation message for delete"
+  },
+
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+
+  "delete": "Delete",
+  "@delete": {
+    "description": "Delete button text"
+  },
+
+  "save": "Save",
+  "@save": {
+    "description": "Save button text"
+  },
+
+  "all": "All",
+  "@all": {
+    "description": "Filter option for all tasks"
+  },
+
+  "active": "Active",
+  "@active": {
+    "description": "Filter option for active tasks"
+  },
+
+  "completed": "Completed",
+  "@completed": {
+    "description": "Filter option for completed tasks"
+  },
+
+  "showCompleted": "Show completed",
+  "@showCompleted": {
+    "description": "Toggle to show/hide completed tasks"
+  },
+
+  "hideCompleted": "Hide completed",
+  "@hideCompleted": {
+    "description": "Toggle to hide completed tasks"
+  },
+
+  "noTasks": "No tasks yet",
+  "@noTasks": {
+    "description": "Message when there are no tasks"
+  },
+
+  "noTasksDescription": "Tap + to add your first task",
+  "@noTasksDescription": {
+    "description": "Description for empty state"
+  },
+
+  "today": "Today",
+  "@today": {
+    "description": "Date label for today"
+  },
+
+  "tomorrow": "Tomorrow",
+  "@tomorrow": {
+    "description": "Date label for tomorrow"
+  },
+
+  "yesterday": "Yesterday",
+  "@yesterday": {
+    "description": "Date label for yesterday"
+  },
+
+  "inDays": "In {count} days",
+  "@inDays": {
+    "description": "Date label for future days",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "daysAgo": "{count} days ago",
+  "@daysAgo": {
+    "description": "Date label for past days",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "settings": "Settings",
+  "@settings": {
+    "description": "Settings screen title"
+  },
+
+  "language": "Language",
+  "@language": {
+    "description": "Language setting label"
+  },
+
+  "languageEnglish": "English",
+  "@languageEnglish": {
+    "description": "English language option"
+  },
+
+  "languageJapanese": "Japanese",
+  "@languageJapanese": {
+    "description": "Japanese language option"
+  },
+
+  "theme": "Theme",
+  "@theme": {
+    "description": "Theme setting label"
+  },
+
+  "themeLight": "Light",
+  "@themeLight": {
+    "description": "Light theme option"
+  },
+
+  "themeDark": "Dark",
+  "@themeDark": {
+    "description": "Dark theme option"
+  },
+
+  "themeSystem": "System",
+  "@themeSystem": {
+    "description": "System theme option"
+  },
+
+  "appearance": "Appearance",
+  "@appearance": {
+    "description": "Appearance section title"
+  },
+
+  "defaults": "Defaults",
+  "@defaults": {
+    "description": "Defaults section title"
+  },
+
+  "sortOrder": "Sort Order",
+  "@sortOrder": {
+    "description": "Sort order setting label"
+  },
+
+  "sortByCreatedAt": "Created Date",
+  "@sortByCreatedAt": {
+    "description": "Sort by creation date option"
+  },
+
+  "sortByDueDate": "Due Date",
+  "@sortByDueDate": {
+    "description": "Sort by due date option"
+  },
+
+  "sortByName": "Name",
+  "@sortByName": {
+    "description": "Sort by name option"
+  },
+
+  "showCompletedTasks": "Show Completed Tasks",
+  "@showCompletedTasks": {
+    "description": "Setting to show completed tasks"
+  },
+
+  "defaultCategory": "Default Category",
+  "@defaultCategory": {
+    "description": "Default category setting label"
+  },
+
+  "dataManagement": "Data Management",
+  "@dataManagement": {
+    "description": "Data management section title"
+  },
+
+  "deleteCompletedTasks": "Delete Completed Tasks",
+  "@deleteCompletedTasks": {
+    "description": "Option to delete completed tasks"
+  },
+
+  "deleteCompletedTasksDescription": "Remove all completed tasks",
+  "@deleteCompletedTasksDescription": {
+    "description": "Description for delete completed tasks"
+  },
+
+  "deleteCompletedConfirmation": "Are you sure you want to delete all completed tasks? This action cannot be undone.",
+  "@deleteCompletedConfirmation": {
+    "description": "Confirmation for deleting completed tasks"
+  },
+
+  "clearAllData": "Clear All Data",
+  "@clearAllData": {
+    "description": "Option to clear all data"
+  },
+
+  "clearAllDataDescription": "Delete all tasks and reset settings",
+  "@clearAllDataDescription": {
+    "description": "Description for clear all data"
+  },
+
+  "clearAllDataConfirmation": "Are you sure you want to delete all data? This will remove all tasks and reset settings. This action cannot be undone.",
+  "@clearAllDataConfirmation": {
+    "description": "Confirmation for clearing all data"
+  },
+
+  "about": "About",
+  "@about": {
+    "description": "About section title"
+  },
+
+  "version": "Version",
+  "@version": {
+    "description": "Version label"
+  },
+
+  "licenses": "Licenses",
+  "@licenses": {
+    "description": "Licenses option"
+  },
+
+  "licensesDescription": "View open source licenses",
+  "@licensesDescription": {
+    "description": "Description for licenses option"
+  },
+
+  "tasksDeleted": "{count} completed tasks deleted",
+  "@tasksDeleted": {
+    "description": "Message after deleting completed tasks",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "dataCleared": "All data has been cleared",
+  "@dataCleared": {
+    "description": "Message after clearing all data"
+  }
+}

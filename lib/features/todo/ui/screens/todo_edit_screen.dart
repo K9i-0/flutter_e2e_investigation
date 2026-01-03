@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../settings/providers/settings_provider.dart';
 import '../../data/models/todo.dart';
 import '../../providers/category_provider.dart';
 import '../../providers/todo_provider.dart';
@@ -33,7 +34,9 @@ class _TodoEditScreenState extends ConsumerState<TodoEditScreen> {
     _titleController = TextEditingController(text: widget.todo?.title ?? '');
     _descriptionController =
         TextEditingController(text: widget.todo?.description ?? '');
-    _selectedCategoryId = widget.todo?.categoryId;
+    // Use default category from settings for new todos
+    _selectedCategoryId = widget.todo?.categoryId ??
+        ref.read(defaultCategoryIdProvider);
     _dueDate = widget.todo?.dueDate;
     _imagePath = widget.todo?.imagePath;
   }

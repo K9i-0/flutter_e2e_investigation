@@ -6,5 +6,5 @@ final searchQueryProvider = StateProvider<String>((ref) => '');
 // Selected category filter
 final selectedCategoryIdProvider = StateProvider<String?>((ref) => null);
 
-// Show completed todos toggle
-final showCompletedProvider = StateProvider<bool>((ref) => true);
+// Note: showCompletedProvider is now in settings_provider.dart
+// and synced with persistent settings
