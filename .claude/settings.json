@@ -1,25 +1,37 @@
-  {
-    "permissions": {
-      "allow": [
-        "mcp__dart-mcp__list_devices",
-        "mcp__dart-mcp__launch_app",
-        "mcp__dart-mcp__connect_dart_tooling_daemon",
-        "mcp__dart-mcp__get_widget_tree",
-        "mcp__dart-mcp__get_runtime_errors",
-        "mcp__dart-mcp__get_app_logs",
-        "mcp__dart-mcp__hot_reload",
-        "mcp__dart-mcp__hot_restart",
-        "mcp__dart-mcp__list_running_apps",
-        "mcp__dart-mcp__stop_app",
-        "mcp__dart-mcp__flutter_driver",
-        "mcp__mobile-mcp__mobile_list_available_devices",
-        "mcp__mobile-mcp__mobile_take_screenshot",
-        "mcp__mobile-mcp__mobile_list_elements_on_screen",
-        "mcp__mobile-mcp__mobile_click_on_screen_at_coordinates",
-        "mcp__mobile-mcp__mobile_swipe_on_screen",
-        "mcp__mobile-mcp__mobile_type_keys",
-        "mcp__mobile-mcp__mobile_launch_app",
-        "mcp__mobile-mcp__mobile_list_apps"
-      ]
-    }
+{
+  "permissions": {
+    "allow": [
+      "mcp__dart-mcp__list_devices",
+      "mcp__dart-mcp__launch_app",
+      "mcp__dart-mcp__connect_dart_tooling_daemon",
+      "mcp__dart-mcp__get_widget_tree",
+      "mcp__dart-mcp__get_runtime_errors",
+      "mcp__dart-mcp__get_app_logs",
+      "mcp__dart-mcp__hot_reload",
+      "mcp__dart-mcp__hot_restart",
+      "mcp__dart-mcp__list_running_apps",
+      "mcp__dart-mcp__stop_app",
+      "mcp__dart-mcp__flutter_driver",
+      "mcp__mobile-mcp__mobile_list_available_devices",
+      "mcp__mobile-mcp__mobile_take_screenshot",
+      "mcp__mobile-mcp__mobile_list_elements_on_screen",
+      "mcp__mobile-mcp__mobile_click_on_screen_at_coordinates",
+      "mcp__mobile-mcp__mobile_swipe_on_screen",
+      "mcp__mobile-mcp__mobile_type_keys",
+      "mcp__mobile-mcp__mobile_launch_app",
+      "mcp__mobile-mcp__mobile_list_apps",
+      "mcp__maestro__cheat_sheet",
+      "mcp__maestro__list_devices",
+      "mcp__maestro__take_screenshot",
+      "mcp__maestro__tap_on",
+      "mcp__maestro__input_text",
+      "mcp__maestro__back",
+      "mcp__maestro__launch_app",
+      "mcp__maestro__stop_app",
+      "mcp__maestro__run_flow",
+      "mcp__maestro__run_flow_files",
+      "mcp__maestro__inspect_view_hierarchy",
+      "mcp__maestro__query_docs"
+    ]
   }
+}

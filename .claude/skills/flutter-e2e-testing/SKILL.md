@@ -5,21 +5,29 @@ description: FlutterアプリのE2Eテストとモバイル自動化の知見。
 
 # Flutter E2E Testing
 
+## 推奨構成: Maestro MCP + Dart MCP
+
+FlutterアプリのE2Eテストと自動化には **Maestro MCP + Dart MCP** の組み合わせが最適。
+
 ## ツール概要
 
-### Maestro
+### Maestro / Maestro MCP
 - Flutter第一級サポートのE2Eテストフレームワーク
-- YAMLでテストを記述
-- `maestro test .maestro/test.yaml` で実行
-
-### Mobile MCP
-- AIエージェントからモバイルアプリを操作するMCPサーバー
-- スクリーンショット、タップ、スワイプなどの操作が可能
-- ネイティブアプリ向けだがFlutterでも動作
+- **CLI**: YAMLでテストを記述 (`maestro test .maestro/test.yaml`)
+- **MCP**: Claude Codeから対話的に操作（YAML不要）
+  - スクリーンショット取得
+  - タップ操作（テキスト/id指定、座標計算不要）
+  - view hierarchy取得
 
 ### Dart MCP Server
 - Flutter開発連携用MCPサーバー
-- ホットリロード、ウィジェットツリー取得などが可能
+- ウィジェットツリー取得（Flutter内部構造）
+- ホットリロード/リスタート
+- ランタイムエラー取得
+
+### Mobile MCP（参考）
+- Maestro MCPで代替可能なため通常は不要
+- 座標ベースの操作が必要な特殊ケースでのみ使用
 
 ## Maestro + Flutter ベストプラクティス
 
@@ -104,53 +112,40 @@ appId: com.example.myapp
 
 ### 機能比較表
 
-| 機能 | Dart MCP | Mobile MCP | Maestro |
-|------|----------|------------|---------|
-| ウィジェットツリー | ✅ 詳細 | - | - |
-| アクセシビリティ情報 | - | ✅ label属性 | ✅ accessibilityText |
-| スクリーンショット | - | ✅ | ✅ |
-| 座標付き要素一覧 | - | ✅ | ✅ (JSON) |
-| タップ操作 | ⚠️ 要設定 | ✅ 座標指定 | ✅ テキスト/id指定 |
-| ホットリロード | ✅ | - | - |
-| ランタイムエラー | ✅ | - | - |
-| E2Eシナリオ記述 | - | - | ✅ YAML |
+| 機能 | Dart MCP | Maestro MCP |
+|------|----------|-------------|
+| ウィジェットツリー | ✅ 詳細（Flutter内部） | - |
+| アクセシビリティ情報 | - | ✅ accessibilityText |
+| スクリーンショット | - | ✅ |
+| 要素一覧 | - | ✅ CSV形式 |
+| タップ操作 | ⚠️ 要設定 | ✅ テキスト/id指定 |
+| ホットリロード | ✅ | - |
+| ランタイムエラー | ✅ | - |
+| E2Eシナリオ記述 | - | ✅ YAML / 対話的 |
 
 ### 推奨される使い分け
 
-**Maestro** (E2Eテスト向け)
-- UI操作とアサーション
-- アクセシビリティ情報の取得（`maestro hierarchy`）
-- テストシナリオの記述と再利用
-- CI/CD連携
+**Maestro MCP** (UI操作・確認)
+- スクリーンショット取得
+- タップ操作（テキスト指定、座標計算不要）
+- view hierarchy確認
+- E2Eテストシナリオ作成・実行
 
-**Dart MCP** (開発・デバッグ向け)
+**Dart MCP** (開発・デバッグ)
 - ウィジェットツリーの詳細確認
 - ランタイムエラーの取得
 - ホットリロード/リスタート
 - アプリ起動とDTD接続
-
-**Mobile MCP** (対話的操作向け)
-- Claude Codeからの即座のUI確認
-- スクリーンショット取得
-- 座標ベースのタップ操作（要素中心を計算）
 
 ### 典型的なワークフロー
 
 ```
 1. Dart MCP: アプリ起動 → DTD接続
 2. Dart MCP: ウィジェットツリーでUI構造確認
-3. Mobile MCP: スクリーンショットで視覚確認
-4. Maestro: E2Eテストシナリオ作成・実行
-5. Dart MCP: エラー時はランタイムエラー確認
-```
-
-### Mobile MCP タップ時の注意
-
-`list_elements_on_screen`の座標は要素の**左上**。中心をタップするには：
-
-```
-center_x = x + width / 2
-center_y = y + height / 2
+3. Maestro MCP: スクリーンショットで視覚確認
+4. Maestro MCP: 対話的にタップ操作
+5. Maestro CLI: E2Eテストシナリオ作成・実行
+6. Dart MCP: エラー時はランタイムエラー確認
 ```
 
 ### Dart MCP flutter_driver使用時
