@@ -1,0 +1,57 @@
+appId: com.example.flutter_e2e_investigation
+---
+# TODO App CRUD Test
+# Tests basic Create, Read, Update operations
+
+# Verify initial state
+- launchApp
+- assertVisible: "TODO"
+- assertVisible: "No todos yet"
+
+# Create a new todo
+- tapOn:
+    id: "todo-fab-add"
+- assertVisible: "New Todo"
+
+# Input title
+- tapOn:
+    id: "title-field"
+- inputText: "Buy groceries"
+- tapOn:
+    id: "save-button"
+
+# Verify todo was created
+- assertVisible: "Buy groceries"
+- assertNotVisible: "No todos yet"
+
+# Toggle completion
+- tapOn:
+    text: "Mark Buy groceries as done"
+
+# Create another todo with category
+- tapOn:
+    id: "todo-fab-add"
+- tapOn:
+    id: "title-field"
+- inputText: "Finish report"
+- tapOn:
+    id: "category-dropdown"
+- tapOn: "Work"
+- tapOn:
+    id: "save-button"
+
+# Verify both todos exist
+- assertVisible: "Buy groceries"
+- assertVisible: "Finish report"
+
+# Test category filter
+- tapOn:
+    id: "category-chip-work"
+- assertVisible: "Finish report"
+- assertNotVisible: "Buy groceries"
+
+# Reset filter
+- tapOn:
+    id: "category-chip-all"
+- assertVisible: "Buy groceries"
+- assertVisible: "Finish report"

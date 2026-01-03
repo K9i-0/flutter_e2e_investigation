@@ -1,0 +1,39 @@
+appId: com.example.flutter_e2e_investigation
+---
+# TODO App Search Test
+# Tests search functionality
+
+- launchApp
+
+# Create test data
+- tapOn:
+    id: "todo-fab-add"
+- tapOn:
+    id: "title-field"
+- inputText: "Meeting with team"
+- tapOn:
+    id: "save-button"
+
+- tapOn:
+    id: "todo-fab-add"
+- tapOn:
+    id: "title-field"
+- inputText: "Review documents"
+- tapOn:
+    id: "save-button"
+
+# Test search
+- tapOn:
+    id: "search-field"
+- inputText: "Meeting"
+
+# Verify search results
+- assertVisible: "Meeting with team"
+- assertNotVisible: "Review documents"
+
+# Clear search
+- tapOn:
+    id: "search-field"
+- eraseText: 7
+- assertVisible: "Meeting with team"
+- assertVisible: "Review documents"

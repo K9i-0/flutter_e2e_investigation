@@ -163,6 +163,151 @@ void main() {
 }
 ```
 
+## 実践知見（TODOアプリ検証）
+
+### Semantics identifier → Android resource-id
+
+`Semantics.identifier`はAndroidで`resource-id`として認識される：
+
+```dart
+Semantics(
+  identifier: 'todo-fab-add',  // → resource-id=todo-fab-add
+  label: 'Add new todo',       // → accessibilityText
+  child: FloatingActionButton(...),
+)
+```
+
+view hierarchy出力例：
+```
+accessibilityText=Add new todo; resource-id=todo-fab-add; class=android.widget.Button
+```
+
+### 動的IDパターン
+
+リスト要素には動的IDを使用：
+
+```dart
+Semantics(
+  identifier: 'todo-tile-${todo.id}',      // 例: todo-tile-5cd04af0-9019...
+  identifier: 'todo-checkbox-${todo.id}',  // 例: todo-checkbox-5cd04af0-...
+  ...
+)
+```
+
+Maestroでの指定方法：
+```yaml
+# 動的IDはテキストマッチングで対応
+- tapOn:
+    text: "Mark Buy groceries as done"  # accessibilityTextで指定
+```
+
+### Semantics命名規則（実証済み）
+
+```
+パターン: {機能}-{要素タイプ}[-{動的ID}]
+
+静的要素:
+- todo-fab-add       # FAB
+- search-field       # 検索フィールド
+- save-button        # 保存ボタン
+- category-chip-work # カテゴリチップ
+
+動的要素:
+- todo-tile-{uuid}     # Todoタイル
+- todo-checkbox-{uuid} # チェックボックス
+```
+
+### Maestro MCPの制限事項
+
+1. **日本語入力非対応**: `inputText`でUnicodeエラー
+   ```
+   Failed to input text: Unicode not supported: 買い物に行く
+   ```
+   → 英語でテストするか、Maestro CLIを使用
+
+2. **動的ID指定**: `id:`では動的UUIDを直接指定できない
+   → `text:`（accessibilityText）で代替
+
+3. **スクロール操作**: `run_flow`でスワイプを使用
+   ```yaml
+   appId: any
+   ---
+   - swipe:
+       start: 50%, 80%
+       end: 50%, 30%
+   ```
+
+### エミュレーターへの画像追加
+
+ギャラリー画像テスト用：
+```bash
+# 画像をエミュレーターにプッシュ
+adb -s emulator-5554 push /path/to/image.png /sdcard/Pictures/
+
+# メディアスキャンでギャラリーに認識させる
+adb -s emulator-5554 shell am broadcast \
+  -a android.intent.action.MEDIA_SCANNER_SCAN_FILE \
+  -d file:///sdcard/Pictures/image.png
+```
+
+### Riverpod + SharedPreferences構成
+
+検証済みの構成：
+```
+lib/
+├── main.dart                 # ProviderScope設定
+├── app.dart                  # MaterialApp
+└── features/todo/
+    ├── data/
+    │   ├── models/           # Todo, Category
+    │   └── repositories/     # SharedPreferences操作
+    ├── providers/            # AsyncNotifierProvider
+    └── ui/
+        ├── screens/          # 画面
+        └── widgets/          # Semantics付きウィジェット
+```
+
+### 動作確認済みワークフロー
+
+```
+1. Dart MCP: launch_app → connect_dart_tooling_daemon
+2. Dart MCP: get_widget_tree でSemantics配置確認
+3. Maestro MCP: inspect_view_hierarchy で状態確認（軽量）
+4. Maestro MCP: tap_on (id/text指定) でUI操作
+5. Maestro MCP: take_screenshot で視覚確認（必要時のみ）
+6. Maestro CLI: YAMLテスト作成・自動実行
+```
+
+### 効率的な状態確認パターン
+
+**推奨: アクセシビリティ情報優先**
+
+画面の状態確認は以下の順序で行う：
+
+1. **inspect_view_hierarchy（第一優先）**
+   - 軽量で高速
+   - resource-id、accessibilityText、bounds情報を取得
+   - 操作対象の要素特定に十分
+
+2. **take_screenshot（必要時のみ）**
+   - 視覚的確認が必要な場合のみ使用
+   - レイアウト崩れ、色、画像の確認
+   - ユーザーへの結果報告
+
+```
+❌ 非効率: screenshot → 確認 → 操作 → screenshot → ...
+✅ 効率的: hierarchy → 操作 → hierarchy → ... → screenshot（最終確認）
+```
+
+**view hierarchy出力例:**
+```csv
+element_num,bounds,attributes
+54,"[53,1788][1028,2313]","accessibilityText=Attached image; resource-id=image-attachment-field; class=android.widget.ImageView"
+67,"[53,2201][1028,2348]","accessibilityText=Save todo; resource-id=save-button; class=android.view.View"
+```
+
+この情報だけで要素の存在確認と操作が可能。
+
 ## 参考リンク
 
 - [Maestro Flutter Testing](https://docs.maestro.dev/platform-support/flutter)
