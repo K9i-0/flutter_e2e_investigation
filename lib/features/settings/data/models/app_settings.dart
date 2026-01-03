@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'completion_filter.dart';
 import 'sort_order.dart';
 import 'theme_mode_option.dart';
 
@@ -12,7 +13,7 @@ abstract class AppSettings with _$AppSettings {
     @Default('ja') String locale,
     @Default(ThemeModeOption.system) ThemeModeOption themeMode,
     @Default(SortOrder.createdAt) SortOrder sortOrder,
-    @Default(true) bool showCompleted,
+    @Default(CompletionFilter.all) CompletionFilter completionFilter,
     String? defaultCategoryId,
   }) = _AppSettings;
 

@@ -6,5 +6,5 @@ final searchQueryProvider = StateProvider<String>((ref) => '');
 // Selected category filter
 final selectedCategoryIdProvider = StateProvider<String?>((ref) => null);
 
-// Note: showCompletedProvider is now in settings_provider.dart
+// Note: completionFilterProvider is in settings_provider.dart
 // and synced with persistent settings

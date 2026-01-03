@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../todo/providers/category_provider.dart';
 import '../../../todo/providers/todo_provider.dart';
+import '../../data/models/completion_filter.dart';
 import '../../data/models/sort_order.dart';
 import '../../data/models/theme_mode_option.dart';
 import '../../providers/settings_provider.dart';
@@ -125,15 +126,25 @@ class SettingsScreen extends ConsumerWidget {
                   ),
                 ),
                 Semantics(
-                  identifier: 'show-completed-toggle',
+                  identifier: 'completion-filter-selector',
                   label: l10n.showCompletedTasks,
-                  child: SettingsSwitchTile(
+                  child: SettingsValueTile<CompletionFilter>(
                     title: l10n.showCompletedTasks,
-                    value: s.showCompleted,
+                    value: s.completionFilter,
+                    options: [
+                      SettingsOption(
+                          value: CompletionFilter.all, label: 'All'),
+                      SettingsOption(
+                          value: CompletionFilter.incomplete,
+                          label: 'Incomplete only'),
+                      SettingsOption(
+                          value: CompletionFilter.completed,
+                          label: 'Completed only'),
+                    ],
                     onChanged: (value) {
                       ref
                           .read(settingsProvider.notifier)
-                          .updateShowCompleted(value);
+                          .updateCompletionFilter(value);
                     },
                   ),
                 ),

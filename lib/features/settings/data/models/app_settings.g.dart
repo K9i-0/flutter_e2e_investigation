@@ -14,7 +14,12 @@ _AppSettings _$AppSettingsFromJson(Map<String, dynamic> json) => _AppSettings(
   sortOrder:
       $enumDecodeNullable(_$SortOrderEnumMap, json['sortOrder']) ??
       SortOrder.createdAt,
-  showCompleted: json['showCompleted'] as bool? ?? true,
+  completionFilter:
+      $enumDecodeNullable(
+        _$CompletionFilterEnumMap,
+        json['completionFilter'],
+      ) ??
+      CompletionFilter.all,
   defaultCategoryId: json['defaultCategoryId'] as String?,
 );
 
@@ -23,7 +28,7 @@ Map<String, dynamic> _$AppSettingsToJson(_AppSettings instance) =>
       'locale': instance.locale,
       'themeMode': _$ThemeModeOptionEnumMap[instance.themeMode]!,
       'sortOrder': _$SortOrderEnumMap[instance.sortOrder]!,
-      'showCompleted': instance.showCompleted,
+      'completionFilter': _$CompletionFilterEnumMap[instance.completionFilter]!,
       'defaultCategoryId': instance.defaultCategoryId,
     };
 
@@ -37,4 +42,10 @@ const _$SortOrderEnumMap = {
   SortOrder.createdAt: 'createdAt',
   SortOrder.dueDate: 'dueDate',
   SortOrder.name: 'name',
+};
+
+const _$CompletionFilterEnumMap = {
+  CompletionFilter.all: 'all',
+  CompletionFilter.completed: 'completed',
+  CompletionFilter.incomplete: 'incomplete',
 };

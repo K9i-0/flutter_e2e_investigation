@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../settings/data/models/completion_filter.dart';
 import '../../../settings/providers/settings_provider.dart';
 import '../../../settings/ui/screens/settings_screen.dart';
 import '../../data/models/category.dart';
@@ -63,7 +64,7 @@ class _TodoListScreenState extends ConsumerState<TodoListScreen> {
     final filteredTodos = ref.watch(filteredTodosProvider);
     final categories = ref.watch(categoriesProvider);
     final selectedCategoryId = ref.watch(selectedCategoryIdProvider);
-    final showCompleted = ref.watch(showCompletedProvider);
+    final completionFilter = ref.watch(completionFilterProvider);
 
     return Scaffold(
       body: SafeArea(
@@ -84,27 +85,30 @@ class _TodoListScreenState extends ConsumerState<TodoListScreen> {
                   ),
                   const Spacer(),
                   Semantics(
-                    identifier: 'toggle-completed',
-                    label: showCompleted ? 'Hide completed' : 'Show completed',
+                    identifier: 'completion-filter',
+                    label: _getFilterLabel(completionFilter),
                     child: IconButton(
                       icon: AnimatedSwitcher(
                         duration: const Duration(milliseconds: 200),
                         child: Icon(
-                          showCompleted
-                              ? Icons.check_circle
-                              : Icons.check_circle_outline,
-                          key: ValueKey(showCompleted),
-                          color: showCompleted
-                              ? theme.colorScheme.primary
-                              : theme.colorScheme.outline,
+                          _getFilterIcon(completionFilter),
+                          key: ValueKey(completionFilter),
+                          color: completionFilter == CompletionFilter.all
+                              ? theme.colorScheme.outline
+                              : theme.colorScheme.primary,
                         ),
                       ),
                       onPressed: () {
+                        final next = switch (completionFilter) {
+                          CompletionFilter.all => CompletionFilter.incomplete,
+                          CompletionFilter.incomplete => CompletionFilter.completed,
+                          CompletionFilter.completed => CompletionFilter.all,
+                        };
                         ref
                             .read(settingsProvider.notifier)
-                            .updateShowCompleted(!showCompleted);
+                            .updateCompletionFilter(next);
                       },
-                      tooltip: showCompleted ? 'Hide completed' : 'Show completed',
+                      tooltip: _getFilterLabel(completionFilter),
                     ),
                   ),
                   Semantics(
@@ -302,5 +306,21 @@ class _TodoListScreenState extends ConsumerState<TodoListScreen> {
         ),
       ),
     );
+  }
+
+  IconData _getFilterIcon(CompletionFilter filter) {
+    return switch (filter) {
+      CompletionFilter.all => Icons.filter_list_off,
+      CompletionFilter.completed => Icons.check_circle,
+      CompletionFilter.incomplete => Icons.radio_button_unchecked,
+    };
+  }
+
+  String _getFilterLabel(CompletionFilter filter) {
+    return switch (filter) {
+      CompletionFilter.all => 'Show all',
+      CompletionFilter.completed => 'Show completed only',
+      CompletionFilter.incomplete => 'Show incomplete only',
+    };
   }
 }

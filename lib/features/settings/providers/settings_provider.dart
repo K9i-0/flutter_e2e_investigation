@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../data/models/app_settings.dart';
+import '../data/models/completion_filter.dart';
 import '../data/models/sort_order.dart';
 import '../data/models/theme_mode_option.dart';
 import '../data/repositories/settings_repository.dart';
@@ -37,9 +38,9 @@ class SettingsNotifier extends AsyncNotifier<AppSettings> {
     await _saveAndUpdate(updated);
   }
 
-  Future<void> updateShowCompleted(bool showCompleted) async {
+  Future<void> updateCompletionFilter(CompletionFilter filter) async {
     final current = state.value ?? const AppSettings();
-    final updated = current.copyWith(showCompleted: showCompleted);
+    final updated = current.copyWith(completionFilter: filter);
     await _saveAndUpdate(updated);
   }
 
@@ -77,8 +78,9 @@ final sortOrderProvider = Provider<SortOrder>((ref) {
       SortOrder.createdAt;
 });
 
-final showCompletedProvider = Provider<bool>((ref) {
-  return ref.watch(settingsProvider).valueOrNull?.showCompleted ?? true;
+final completionFilterProvider = Provider<CompletionFilter>((ref) {
+  return ref.watch(settingsProvider).valueOrNull?.completionFilter ??
+      CompletionFilter.all;
 });
 
 final defaultCategoryIdProvider = Provider<String?>((ref) {

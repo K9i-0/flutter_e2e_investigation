@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AppSettings {
 
- String get locale; ThemeModeOption get themeMode; SortOrder get sortOrder; bool get showCompleted; String? get defaultCategoryId;
+ String get locale; ThemeModeOption get themeMode; SortOrder get sortOrder; CompletionFilter get completionFilter; String? get defaultCategoryId;
 /// Create a copy of AppSettings
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $AppSettingsCopyWith<AppSettings> get copyWith => _$AppSettingsCopyWithImpl<AppS
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppSettings&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder)&&(identical(other.showCompleted, showCompleted) || other.showCompleted == showCompleted)&&(identical(other.defaultCategoryId, defaultCategoryId) || other.defaultCategoryId == defaultCategoryId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppSettings&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder)&&(identical(other.completionFilter, completionFilter) || other.completionFilter == completionFilter)&&(identical(other.defaultCategoryId, defaultCategoryId) || other.defaultCategoryId == defaultCategoryId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,locale,themeMode,sortOrder,showCompleted,defaultCategoryId);
+int get hashCode => Object.hash(runtimeType,locale,themeMode,sortOrder,completionFilter,defaultCategoryId);
 
 @override
 String toString() {
-  return 'AppSettings(locale: $locale, themeMode: $themeMode, sortOrder: $sortOrder, showCompleted: $showCompleted, defaultCategoryId: $defaultCategoryId)';
+  return 'AppSettings(locale: $locale, themeMode: $themeMode, sortOrder: $sortOrder, completionFilter: $completionFilter, defaultCategoryId: $defaultCategoryId)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $AppSettingsCopyWith<$Res>  {
   factory $AppSettingsCopyWith(AppSettings value, $Res Function(AppSettings) _then) = _$AppSettingsCopyWithImpl;
 @useResult
 $Res call({
- String locale, ThemeModeOption themeMode, SortOrder sortOrder, bool showCompleted, String? defaultCategoryId
+ String locale, ThemeModeOption themeMode, SortOrder sortOrder, CompletionFilter completionFilter, String? defaultCategoryId
 });
 
 
@@ -65,13 +65,13 @@ class _$AppSettingsCopyWithImpl<$Res>
 
 /// Create a copy of AppSettings
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? locale = null,Object? themeMode = null,Object? sortOrder = null,Object? showCompleted = null,Object? defaultCategoryId = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? locale = null,Object? themeMode = null,Object? sortOrder = null,Object? completionFilter = null,Object? defaultCategoryId = freezed,}) {
   return _then(_self.copyWith(
 locale: null == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
 as String,themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
 as ThemeModeOption,sortOrder: null == sortOrder ? _self.sortOrder : sortOrder // ignore: cast_nullable_to_non_nullable
-as SortOrder,showCompleted: null == showCompleted ? _self.showCompleted : showCompleted // ignore: cast_nullable_to_non_nullable
-as bool,defaultCategoryId: freezed == defaultCategoryId ? _self.defaultCategoryId : defaultCategoryId // ignore: cast_nullable_to_non_nullable
+as SortOrder,completionFilter: null == completionFilter ? _self.completionFilter : completionFilter // ignore: cast_nullable_to_non_nullable
+as CompletionFilter,defaultCategoryId: freezed == defaultCategoryId ? _self.defaultCategoryId : defaultCategoryId // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -157,10 +157,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String locale,  ThemeModeOption themeMode,  SortOrder sortOrder,  bool showCompleted,  String? defaultCategoryId)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String locale,  ThemeModeOption themeMode,  SortOrder sortOrder,  CompletionFilter completionFilter,  String? defaultCategoryId)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AppSettings() when $default != null:
-return $default(_that.locale,_that.themeMode,_that.sortOrder,_that.showCompleted,_that.defaultCategoryId);case _:
+return $default(_that.locale,_that.themeMode,_that.sortOrder,_that.completionFilter,_that.defaultCategoryId);case _:
   return orElse();
 
 }
@@ -178,10 +178,10 @@ return $default(_that.locale,_that.themeMode,_that.sortOrder,_that.showCompleted
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String locale,  ThemeModeOption themeMode,  SortOrder sortOrder,  bool showCompleted,  String? defaultCategoryId)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String locale,  ThemeModeOption themeMode,  SortOrder sortOrder,  CompletionFilter completionFilter,  String? defaultCategoryId)  $default,) {final _that = this;
 switch (_that) {
 case _AppSettings():
-return $default(_that.locale,_that.themeMode,_that.sortOrder,_that.showCompleted,_that.defaultCategoryId);case _:
+return $default(_that.locale,_that.themeMode,_that.sortOrder,_that.completionFilter,_that.defaultCategoryId);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +198,10 @@ return $default(_that.locale,_that.themeMode,_that.sortOrder,_that.showCompleted
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String locale,  ThemeModeOption themeMode,  SortOrder sortOrder,  bool showCompleted,  String? defaultCategoryId)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String locale,  ThemeModeOption themeMode,  SortOrder sortOrder,  CompletionFilter completionFilter,  String? defaultCategoryId)?  $default,) {final _that = this;
 switch (_that) {
 case _AppSettings() when $default != null:
-return $default(_that.locale,_that.themeMode,_that.sortOrder,_that.showCompleted,_that.defaultCategoryId);case _:
+return $default(_that.locale,_that.themeMode,_that.sortOrder,_that.completionFilter,_that.defaultCategoryId);case _:
   return null;
 
 }
@@ -213,13 +213,13 @@ return $default(_that.locale,_that.themeMode,_that.sortOrder,_that.showCompleted
 @JsonSerializable()
 
 class _AppSettings implements AppSettings {
-  const _AppSettings({this.locale = 'ja', this.themeMode = ThemeModeOption.system, this.sortOrder = SortOrder.createdAt, this.showCompleted = true, this.defaultCategoryId});
+  const _AppSettings({this.locale = 'ja', this.themeMode = ThemeModeOption.system, this.sortOrder = SortOrder.createdAt, this.completionFilter = CompletionFilter.all, this.defaultCategoryId});
   factory _AppSettings.fromJson(Map<String, dynamic> json) => _$AppSettingsFromJson(json);
 
 @override@JsonKey() final  String locale;
 @override@JsonKey() final  ThemeModeOption themeMode;
 @override@JsonKey() final  SortOrder sortOrder;
-@override@JsonKey() final  bool showCompleted;
+@override@JsonKey() final  CompletionFilter completionFilter;
 @override final  String? defaultCategoryId;
 
 /// Create a copy of AppSettings
@@ -235,16 +235,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppSettings&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder)&&(identical(other.showCompleted, showCompleted) || other.showCompleted == showCompleted)&&(identical(other.defaultCategoryId, defaultCategoryId) || other.defaultCategoryId == defaultCategoryId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppSettings&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder)&&(identical(other.completionFilter, completionFilter) || other.completionFilter == completionFilter)&&(identical(other.defaultCategoryId, defaultCategoryId) || other.defaultCategoryId == defaultCategoryId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,locale,themeMode,sortOrder,showCompleted,defaultCategoryId);
+int get hashCode => Object.hash(runtimeType,locale,themeMode,sortOrder,completionFilter,defaultCategoryId);
 
 @override
 String toString() {
-  return 'AppSettings(locale: $locale, themeMode: $themeMode, sortOrder: $sortOrder, showCompleted: $showCompleted, defaultCategoryId: $defaultCategoryId)';
+  return 'AppSettings(locale: $locale, themeMode: $themeMode, sortOrder: $sortOrder, completionFilter: $completionFilter, defaultCategoryId: $defaultCategoryId)';
 }
 
 
@@ -255,7 +255,7 @@ abstract mixin class _$AppSettingsCopyWith<$Res> implements $AppSettingsCopyWith
   factory _$AppSettingsCopyWith(_AppSettings value, $Res Function(_AppSettings) _then) = __$AppSettingsCopyWithImpl;
 @override @useResult
 $Res call({
- String locale, ThemeModeOption themeMode, SortOrder sortOrder, bool showCompleted, String? defaultCategoryId
+ String locale, ThemeModeOption themeMode, SortOrder sortOrder, CompletionFilter completionFilter, String? defaultCategoryId
 });
 
 
@@ -272,13 +272,13 @@ class __$AppSettingsCopyWithImpl<$Res>
 
 /// Create a copy of AppSettings
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? locale = null,Object? themeMode = null,Object? sortOrder = null,Object? showCompleted = null,Object? defaultCategoryId = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? locale = null,Object? themeMode = null,Object? sortOrder = null,Object? completionFilter = null,Object? defaultCategoryId = freezed,}) {
   return _then(_AppSettings(
 locale: null == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
 as String,themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
 as ThemeModeOption,sortOrder: null == sortOrder ? _self.sortOrder : sortOrder // ignore: cast_nullable_to_non_nullable
-as SortOrder,showCompleted: null == showCompleted ? _self.showCompleted : showCompleted // ignore: cast_nullable_to_non_nullable
-as bool,defaultCategoryId: freezed == defaultCategoryId ? _self.defaultCategoryId : defaultCategoryId // ignore: cast_nullable_to_non_nullable
+as SortOrder,completionFilter: null == completionFilter ? _self.completionFilter : completionFilter // ignore: cast_nullable_to_non_nullable
+as CompletionFilter,defaultCategoryId: freezed == defaultCategoryId ? _self.defaultCategoryId : defaultCategoryId // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

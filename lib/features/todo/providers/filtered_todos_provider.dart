@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../settings/data/models/completion_filter.dart';
 import '../../settings/data/models/sort_order.dart';
 import '../../settings/providers/settings_provider.dart';
 import '../data/models/todo.dart';
@@ -10,14 +11,19 @@ final filteredTodosProvider = Provider<AsyncValue<List<Todo>>>((ref) {
   final todosAsync = ref.watch(todosProvider);
   final searchQuery = ref.watch(searchQueryProvider).toLowerCase();
   final selectedCategoryId = ref.watch(selectedCategoryIdProvider);
-  final showCompleted = ref.watch(showCompletedProvider);
+  final completionFilter = ref.watch(completionFilterProvider);
   final sortOrder = ref.watch(sortOrderProvider);
 
   return todosAsync.whenData((todos) {
     var filteredTodos = todos.where((todo) {
       // Filter by completion status
-      if (!showCompleted && todo.isCompleted) {
-        return false;
+      switch (completionFilter) {
+        case CompletionFilter.all:
+          break; // No filter
+        case CompletionFilter.completed:
+          if (!todo.isCompleted) return false;
+        case CompletionFilter.incomplete:
+          if (todo.isCompleted) return false;
       }
 
       // Filter by category
