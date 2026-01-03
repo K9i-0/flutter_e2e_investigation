@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -234,6 +235,35 @@ class SettingsScreen extends ConsumerWidget {
               ],
             ),
 
+            // Debug Section (only in debug mode)
+            if (kDebugMode)
+              SettingsSection(
+                title: 'Debug',
+                children: [
+                  Semantics(
+                    identifier: 'debug-generate-todos',
+                    label: 'Generate 30 debug TODOs',
+                    child: SettingsTile(
+                      title: 'Generate 30 TODOs',
+                      subtitle: 'Create dummy tasks for testing',
+                      isFirst: true,
+                      onTap: () => _generateDebugTodos(context, ref),
+                    ),
+                  ),
+                  Semantics(
+                    identifier: 'debug-clear-todos',
+                    label: 'Clear all TODOs',
+                    child: SettingsTile(
+                      title: 'Clear All TODOs',
+                      subtitle: 'Delete all tasks without confirmation',
+                      isLast: true,
+                      isDestructive: true,
+                      onTap: () => _clearAllTodos(context, ref),
+                    ),
+                  ),
+                ],
+              ),
+
             const SizedBox(height: 32),
           ],
         ),
@@ -322,6 +352,26 @@ class SettingsScreen extends ConsumerWidget {
         );
         Navigator.of(context).pop();
       }
+    }
+  }
+
+  Future<void> _generateDebugTodos(BuildContext context, WidgetRef ref) async {
+    await ref.read(todosProvider.notifier).generateDebugTodos(30);
+
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Generated 30 debug TODOs')),
+      );
+    }
+  }
+
+  Future<void> _clearAllTodos(BuildContext context, WidgetRef ref) async {
+    await ref.read(todosProvider.notifier).clearAllTodos();
+
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('All TODOs cleared')),
+      );
     }
   }
 }

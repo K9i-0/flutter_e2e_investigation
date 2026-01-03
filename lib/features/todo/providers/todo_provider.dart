@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 
+import '../data/models/category.dart';
 import '../data/models/todo.dart';
 import '../data/repositories/todo_repository.dart';
 
@@ -112,5 +115,56 @@ class TodosNotifier extends AsyncNotifier<List<Todo>> {
 
     state = AsyncData(newTodos);
     await repository.saveTodos(newTodos);
+  }
+
+  /// Debug: Generate multiple dummy TODOs for testing
+  Future<void> generateDebugTodos(int count) async {
+    final repository = ref.read(todoRepositoryProvider);
+    final random = Random();
+    final now = DateTime.now();
+    final categories = Category.defaults;
+
+    final debugTodos = List.generate(count, (index) {
+      final createdAt = now.subtract(Duration(hours: index));
+      final categoryId = categories[random.nextInt(categories.length)].id;
+      final hasDescription = random.nextBool();
+      final hasDueDate = random.nextBool();
+      final isCompleted = random.nextDouble() < 0.2; // 20% completed
+
+      return Todo(
+        id: const Uuid().v4(),
+        title: 'Debug Task ${index + 1}',
+        description: hasDescription ? 'This is a debug task #${index + 1}' : null,
+        categoryId: categoryId,
+        dueDate: hasDueDate
+            ? now.add(Duration(days: random.nextInt(14) - 3))
+            : null,
+        isCompleted: isCompleted,
+        createdAt: createdAt,
+        updatedAt: createdAt,
+      );
+    });
+
+    final currentTodos = state.value ?? [];
+    final newTodos = [...currentTodos, ...debugTodos];
+
+    state = AsyncData(newTodos);
+    await repository.saveTodos(newTodos);
+  }
+
+  /// Debug: Clear all TODOs
+  Future<void> clearAllTodos() async {
+    final repository = ref.read(todoRepositoryProvider);
+    final currentTodos = state.value ?? [];
+
+    // Delete all images
+    for (final todo in currentTodos) {
+      if (todo.imagePath != null) {
+        await repository.deleteImage(todo.imagePath!);
+      }
+    }
+
+    state = const AsyncData([]);
+    await repository.saveTodos([]);
   }
 }
