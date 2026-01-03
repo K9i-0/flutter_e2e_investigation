@@ -1,0 +1,21 @@
+appId: com.example.flutter_e2e_investigation
+---
+- launchApp
+
+# ホーム画面が表示されることを確認
+- assertVisible: "Flutter Demo Home Page"
+
+# カウンターの初期値が0であることを確認
+- assertVisible: "0"
+
+# FABをタップしてカウンターをインクリメント (tooltipテキストで認識)
+- tapOn: "Increment"
+
+# カウンターが1になったことを確認
+- assertVisible: "1"
+
+# もう一度タップ
+- tapOn: "Increment"
+
+# カウンターが2になったことを確認
+- assertVisible: "2"
