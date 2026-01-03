@@ -32,12 +32,6 @@ class _TodoSearchBarState extends State<TodoSearchBar> {
           decoration: BoxDecoration(
             color: theme.colorScheme.surfaceContainerHigh,
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(
-              color: _isFocused
-                  ? theme.colorScheme.primary
-                  : theme.colorScheme.outlineVariant,
-              width: _isFocused ? 2 : 1,
-            ),
             boxShadow: _isFocused
                 ? [
                     BoxShadow(
@@ -48,11 +42,22 @@ class _TodoSearchBarState extends State<TodoSearchBar> {
                   ]
                 : null,
           ),
-          child: Focus(
-            onFocusChange: (focused) {
-              setState(() => _isFocused = focused);
-            },
-            child: TextField(
+          foregroundDecoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: _isFocused
+                  ? theme.colorScheme.primary
+                  : theme.colorScheme.outlineVariant,
+              width: _isFocused ? 2 : 1,
+            ),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(14),
+            child: Focus(
+              onFocusChange: (focused) {
+                setState(() => _isFocused = focused);
+              },
+              child: TextField(
               controller: widget.controller,
               onChanged: widget.onChanged,
               style: theme.textTheme.bodyLarge,
@@ -99,6 +104,7 @@ class _TodoSearchBarState extends State<TodoSearchBar> {
                   vertical: 14,
                 ),
               ),
+            ),
             ),
           ),
         ),
