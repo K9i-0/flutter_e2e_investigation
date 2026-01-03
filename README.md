@@ -102,6 +102,49 @@ Claude Code が実行する開発フロー：
 
 `inspect_view_hierarchy` は軽量で高速。スクリーンショットは視覚確認が必要な時のみ。
 
+### Widget 選択からの実装フロー
+
+`/inspect-widget` コマンドを使って、シミュレーターで選択した Widget を起点に修正を行うワークフロー：
+
+```
+1. /inspect-widget 実行
+   └─ Dart MCP: Widget選択モード有効化
+   └─ ユーザー: シミュレーターでWidgetをタップ選択
+
+2. Widget 調査
+   └─ Dart MCP: get_selected_widget でWidget情報取得
+   └─ ソースコード位置・プロパティを確認
+
+3. 修正指示 → Plan Mode
+   └─ ユーザー: 「3状態にしたい」等の修正指示
+   └─ Claude: 関連コード調査 → 実装計画作成
+
+4. 実装
+   └─ TodoWrite でタスク管理
+   └─ コード編集 → hot_reload で即時反映
+
+5. 動作確認
+   └─ Maestro MCP: inspect_view_hierarchy で状態確認
+   └─ Maestro MCP: tap_on で操作テスト
+   └─ Maestro MCP: take_screenshot で最終確認
+```
+
+**実例**: 完了フィルターの3状態化
+
+```
+User: (シミュレーターでフィルターアイコンを選択)
+User: 「3状態にしたい - すべて/完了済み/未完了」
+
+Claude:
+  1. get_selected_widget → todo_list_screen.dart:92 の Icon 特定
+  2. Plan Mode → CompletionFilter enum 設計
+  3. 実装 → 6ファイル修正
+  4. Maestro で3状態サイクルを自動テスト
+  5. スクリーンショットで報告
+```
+
+この流れにより、**「ここを直したい」→ 選択 → 修正 → 確認** が一気通貫で完了します。
+
 ## Sample App: TODO
 
 検証用に作成した TODO アプリ：
