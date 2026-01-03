@@ -100,6 +100,74 @@ appId: com.example.myapp
 - `excludeSemantics: false`を確認
 - `MergeSemantics`で子要素を統合
 
+## ツール使い分けガイド
+
+### 機能比較表
+
+| 機能 | Dart MCP | Mobile MCP | Maestro |
+|------|----------|------------|---------|
+| ウィジェットツリー | ✅ 詳細 | - | - |
+| アクセシビリティ情報 | - | ✅ label属性 | ✅ accessibilityText |
+| スクリーンショット | - | ✅ | ✅ |
+| 座標付き要素一覧 | - | ✅ | ✅ (JSON) |
+| タップ操作 | ⚠️ 要設定 | ✅ 座標指定 | ✅ テキスト/id指定 |
+| ホットリロード | ✅ | - | - |
+| ランタイムエラー | ✅ | - | - |
+| E2Eシナリオ記述 | - | - | ✅ YAML |
+
+### 推奨される使い分け
+
+**Maestro** (E2Eテスト向け)
+- UI操作とアサーション
+- アクセシビリティ情報の取得（`maestro hierarchy`）
+- テストシナリオの記述と再利用
+- CI/CD連携
+
+**Dart MCP** (開発・デバッグ向け)
+- ウィジェットツリーの詳細確認
+- ランタイムエラーの取得
+- ホットリロード/リスタート
+- アプリ起動とDTD接続
+
+**Mobile MCP** (対話的操作向け)
+- Claude Codeからの即座のUI確認
+- スクリーンショット取得
+- 座標ベースのタップ操作（要素中心を計算）
+
+### 典型的なワークフロー
+
+```
+1. Dart MCP: アプリ起動 → DTD接続
+2. Dart MCP: ウィジェットツリーでUI構造確認
+3. Mobile MCP: スクリーンショットで視覚確認
+4. Maestro: E2Eテストシナリオ作成・実行
+5. Dart MCP: エラー時はランタイムエラー確認
+```
+
+### Mobile MCP タップ時の注意
+
+`list_elements_on_screen`の座標は要素の**左上**。中心をタップするには：
+
+```
+center_x = x + width / 2
+center_y = y + height / 2
+```
+
+### Dart MCP flutter_driver使用時
+
+アプリ側に設定が必要：
+
+```dart
+// lib/driver_main.dart
+import 'package:flutter_driver/driver_extension.dart';
+import 'main.dart' as app;
+
+void main() {
+  enableFlutterDriverExtension();
+  app.main();
+}
+```
+
 ## 参考リンク
 
 - [Maestro Flutter Testing](https://docs.maestro.dev/platform-support/flutter)
