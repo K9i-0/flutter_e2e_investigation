@@ -186,6 +186,8 @@ class _TodoListScreenState extends ConsumerState<TodoListScreen> {
                   }
 
                   return ListView.builder(
+                    keyboardDismissBehavior:
+                        ScrollViewKeyboardDismissBehavior.onDrag,
                     padding: const EdgeInsets.only(bottom: 100),
                     itemCount: todos.length,
                     itemBuilder: (context, index) {

@@ -183,6 +183,7 @@ class _TodoEditScreenState extends ConsumerState<TodoEditScreen> {
       body: Form(
         key: _formKey,
         child: ListView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           padding: const EdgeInsets.all(20),
           children: [
             // Title field
