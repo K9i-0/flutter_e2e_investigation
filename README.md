@@ -1,5 +1,7 @@
 # Flutter E2E Investigation
 
+[🇺🇸 English](./README_en.md)
+
 **AI駆動開発の次のステージ**を検証するプロジェクトです。
 
 Claude Code + MCP (Maestro / Dart) を組み合わせ、AIが**設計・実装・動作確認・セルフレビュー**まで自律的に行います。
