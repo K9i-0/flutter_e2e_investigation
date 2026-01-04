@@ -5,12 +5,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_e2e_investigation/features/todo/data/models/category.dart';
 import 'package:flutter_e2e_investigation/features/todo/data/models/todo.dart';
 import 'package:flutter_e2e_investigation/features/todo/providers/category_provider.dart';
-import 'package:flutter_e2e_investigation/features/todo/providers/filter_provider.dart';
 import 'package:flutter_e2e_investigation/features/todo/providers/todo_provider.dart';
 import 'package:flutter_e2e_investigation/features/todo/ui/screens/todo_list_screen.dart';
 import 'package:flutter_e2e_investigation/features/todo/ui/widgets/category_chip.dart';
 import 'package:flutter_e2e_investigation/features/settings/providers/settings_provider.dart';
 import 'package:flutter_e2e_investigation/features/settings/data/models/app_settings.dart';
+import 'package:flutter_e2e_investigation/features/settings/data/models/completion_filter.dart';
 
 void main() {
   group('TodoListScreen category filtering', () {
@@ -89,7 +89,7 @@ void main() {
               ),
               settingsProvider.overrideWith(
                 () => _TestSettingsNotifier(
-                  const AppSettings(showCompleted: true),
+                  const AppSettings(completionFilter: CompletionFilter.all),
                 ),
               ),
             ],
@@ -189,7 +189,7 @@ void main() {
               ),
               settingsProvider.overrideWith(
                 () => _TestSettingsNotifier(
-                  const AppSettings(showCompleted: true),
+                  const AppSettings(completionFilter: CompletionFilter.all),
                 ),
               ),
             ],
@@ -282,15 +282,6 @@ class _TestCategoriesNotifier extends AsyncNotifier<List<Category>>
 
   @override
   Future<List<Category>> build() async => _categories;
-
-  @override
-  Future<void> addCategory(String name, Color color) async {}
-
-  @override
-  Future<void> updateCategory(Category category) async {}
-
-  @override
-  Future<void> deleteCategory(String categoryId) async {}
 }
 
 /// Test notifier for settings
@@ -313,7 +304,7 @@ class _TestSettingsNotifier extends AsyncNotifier<AppSettings>
   Future<void> updateSortOrder(value) async {}
 
   @override
-  Future<void> updateShowCompleted(bool show) async {}
+  Future<void> updateCompletionFilter(CompletionFilter filter) async {}
 
   @override
   Future<void> updateDefaultCategoryId(String? categoryId) async {}
