@@ -60,6 +60,8 @@ dependencies:
   # Immutable models
   freezed_annotation: ^3.0.0
   json_annotation: ^4.9.0
+  talker_flutter: ^5.1.9
+  talker_riverpod_logger: ^5.0.1
 
 dev_dependencies:
   flutter_test:

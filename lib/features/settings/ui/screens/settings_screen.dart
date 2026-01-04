@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
+import '../../../../core/dev_tools/talker.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../todo/providers/category_provider.dart';
 import '../../../todo/providers/todo_provider.dart';
@@ -252,12 +254,29 @@ class SettingsScreen extends ConsumerWidget {
                 title: 'Debug',
                 children: [
                   Semantics(
+                    identifier: 'debug-view-logs',
+                    label: 'View logs',
+                    child: SettingsTile(
+                      title: 'View Logs',
+                      subtitle: 'Open Talker debug console',
+                      trailing: Icon(
+                        Icons.chevron_right_rounded,
+                        color: theme.colorScheme.outline,
+                      ),
+                      isFirst: true,
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => TalkerScreen(talker: talker),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Semantics(
                     identifier: 'debug-generate-todos',
                     label: 'Generate 30 debug TODOs',
                     child: SettingsTile(
                       title: 'Generate 30 TODOs',
                       subtitle: 'Create dummy tasks for testing',
-                      isFirst: true,
                       onTap: () => _generateDebugTodos(context, ref),
                     ),
                   ),

@@ -1,7 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
+import 'core/dev_tools/talker.dart';
 import 'core/l10n/app_localizations.dart';
 import 'core/theme/app_theme.dart';
 import 'features/settings/providers/settings_provider.dart';
@@ -29,6 +32,9 @@ class TodoApp extends ConsumerWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: AppLocalizations.supportedLocales,
+        navigatorObservers: [
+          if (kDebugMode) TalkerRouteObserver(talker),
+        ],
         home: const TodoListScreen(),
       ),
       loading: () => MaterialApp(
