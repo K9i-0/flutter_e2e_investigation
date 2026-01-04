@@ -19,6 +19,7 @@
       "Bash(git commit:*)",
       "Bash(git push:*)",
       "Bash(gh:*)",
+      "Bash(gemini -p:*)",
       "WebSearch",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:docs.maestro.dev)",
