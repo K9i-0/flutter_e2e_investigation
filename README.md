@@ -135,6 +135,50 @@ AIエージェントを並列稼働させるには、人間がボトルネック
 - `input_text`: テキスト入力
 - `run_flow`: Maestro フロー実行
 
+### Why Maestro MCP? (vs Mobile MCP)
+
+モバイル自動化MCPには [Maestro MCP](https://github.com/mobile-next/maestro-mcp) と [Mobile MCP](https://github.com/mobile-next/mobile-mcp) があります。
+
+#### 機能比較
+
+| 機能 | Maestro MCP | Mobile MCP |
+|------|:-----------:|:----------:|
+| **ID/テキスト指定タップ** | ✅ `tap_on(id="xxx")` | ❌ 座標指定のみ |
+| **座標指定タップ** | △ run_flow経由 | ✅ 直接対応 |
+| **デバイスボタン（HOME/BACK）** | ❌ | ✅ |
+| **画面向き変更** | ❌ | ✅ |
+| **アプリinstall/uninstall** | ❌ | ✅ |
+| **YAMLフロー実行** | ✅ | ❌ |
+| **ドキュメント参照** | ✅ | ❌ |
+
+#### 要素取得の違い
+
+| 項目 | Maestro MCP | Mobile MCP |
+|------|-------------|------------|
+| **形式** | CSV（階層構造） | JSON（フラット） |
+| **情報量** | 詳細（冗長） | コンパクト |
+| **identifier検出** | ✅ 安定 | △ 一部欠落 |
+| **座標形式** | `[left,top][right,bottom]` | `{x, y, width, height}` |
+
+#### このプロジェクトで Maestro MCP を採用する理由
+
+1. **E2Eシナリオとの知見共有**
+   - `~/.maestro/tests/` にあるYAMLシナリオと同じセレクタ戦略
+   - Maestro CLIで動くものはMaestro MCPでも動く
+
+2. **Semantics設計の一貫性**
+   - `resource-id` = Flutter `Semantics.identifier`
+   - E2Eも対話的検証も同じID指定でタップ可能
+
+3. **操作の効率性**
+   - ID指定タップが1回で完結（Mobile MCPは要素取得→座標計算→タップの3ステップ）
+   - トータルのコンテキスト消費が少ない
+
+4. **run_flowでYAML再利用**
+   - 既存のE2EシナリオをMCPから直接実行可能
+
+**結論**: 汎用ツールとしては一長一短だが、Flutter E2Eテストの知見蓄積が目的の本プロジェクトでは Maestro MCP が最適。
+
 ### Self Review（セルフレビュー）
 - **Gemini CLI**: 外部モデル視点でのレビュー
 - **Claude subagent**: 別コンテキストでのレビュー

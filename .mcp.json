@@ -3,13 +3,17 @@
     "dart-mcp": {
       "type": "stdio",
       "command": "dart",
-      "args": ["mcp-server"],
+      "args": [
+        "mcp-server"
+      ],
       "env": {}
     },
     "maestro": {
       "type": "stdio",
       "command": "maestro",
-      "args": ["mcp"],
+      "args": [
+        "mcp"
+      ],
       "env": {}
     }
   }
