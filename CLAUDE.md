@@ -119,8 +119,26 @@ Plan Mode → 実装 → 動作確認 → セルフレビュー → Git操作
 | クラス名 | `PascalCase` |
 | 変数/関数 | `camelCase` |
 
-- E2Eテスト用に `Semantics` を適切に配置
 - 状態管理は `Riverpod AsyncNotifier`
+
+### Semantics の重要性
+
+`Semantics` ウィジェットは **E2Eテスト・動作確認の両方** に有効。
+
+Maestro CLI / MCP はどちらもアクセシビリティ情報を元に要素を認識するため、適切な `Semantics` 設定が重要。
+
+| ツール | 用途 |
+|--------|------|
+| Maestro CLI | E2Eシナリオ実行（YAML定義） |
+| Maestro MCP | 対話的なアプリ操作・動作確認 |
+
+```dart
+Semantics(
+  identifier: 'todo-fab-add',  // resource-id として認識
+  label: 'Add new todo',       // accessibilityText として認識
+  child: FloatingActionButton(...),
+)
+```
 
 ## Flutter 開発
 
