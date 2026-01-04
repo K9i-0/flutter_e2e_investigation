@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vector_math/vector_math_64.dart' show Vector3;
 
 import '../../data/models/category.dart';
 
@@ -37,12 +38,12 @@ class _CategoryChipState extends State<CategoryChip> {
         onTap: widget.onTap,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 150),
-          transform: Matrix4.identity()..scale(_isPressed ? 0.95 : 1.0),
+          transform: Matrix4.identity()..scaleByVector3(Vector3(_isPressed ? 0.95 : 1.0, _isPressed ? 0.95 : 1.0, 1.0)),
           transformAlignment: Alignment.center,
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
           decoration: BoxDecoration(
             color: isSelected
-                ? category.color.withOpacity(0.2)
+                ? category.color.withValues(alpha: 0.2)
                 : theme.colorScheme.surfaceContainerHigh,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
@@ -63,7 +64,7 @@ class _CategoryChipState extends State<CategoryChip> {
                   boxShadow: isSelected
                       ? [
                           BoxShadow(
-                            color: category.color.withOpacity(0.4),
+                            color: category.color.withValues(alpha: 0.4),
                             blurRadius: 4,
                           ),
                         ]
@@ -118,12 +119,12 @@ class _AllCategoryChipState extends State<AllCategoryChip> {
         onTap: widget.onTap,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 150),
-          transform: Matrix4.identity()..scale(_isPressed ? 0.95 : 1.0),
+          transform: Matrix4.identity()..scaleByVector3(Vector3(_isPressed ? 0.95 : 1.0, _isPressed ? 0.95 : 1.0, 1.0)),
           transformAlignment: Alignment.center,
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
           decoration: BoxDecoration(
             color: isSelected
-                ? theme.colorScheme.primary.withOpacity(0.15)
+                ? theme.colorScheme.primary.withValues(alpha: 0.15)
                 : theme.colorScheme.surfaceContainerHigh,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(

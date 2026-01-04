@@ -164,7 +164,7 @@ class _TodoEditScreenState extends ConsumerState<TodoEditScreen> {
                   icon: Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.error.withOpacity(0.1),
+                      color: theme.colorScheme.error.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Icon(
@@ -259,7 +259,7 @@ class _TodoEditScreenState extends ConsumerState<TodoEditScreen> {
                   ],
                 ),
                 loading: () => const SizedBox.shrink(),
-                error: (_, __) => const SizedBox.shrink(),
+                error: (_, _) => const SizedBox.shrink(),
               ),
             ),
             const SizedBox(height: 24),
@@ -279,7 +279,7 @@ class _TodoEditScreenState extends ConsumerState<TodoEditScreen> {
                     borderRadius: BorderRadius.circular(12),
                     border: _dueDate != null
                         ? Border.all(
-                            color: theme.colorScheme.primary.withOpacity(0.3),
+                            color: theme.colorScheme.primary.withValues(alpha: 0.3),
                           )
                         : null,
                   ),
@@ -289,7 +289,7 @@ class _TodoEditScreenState extends ConsumerState<TodoEditScreen> {
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           color: _dueDate != null
-                              ? theme.colorScheme.primary.withOpacity(0.1)
+                              ? theme.colorScheme.primary.withValues(alpha: 0.1)
                               : theme.colorScheme.surfaceContainerHighest,
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -429,7 +429,7 @@ class _TodoEditScreenState extends ConsumerState<TodoEditScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         decoration: BoxDecoration(
           color: isSelected
-              ? (color ?? theme.colorScheme.primary).withOpacity(0.15)
+              ? (color ?? theme.colorScheme.primary).withValues(alpha: 0.15)
               : theme.colorScheme.surfaceContainerHigh,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(

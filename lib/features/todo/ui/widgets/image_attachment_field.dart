@@ -34,7 +34,7 @@ class ImageAttachmentField extends StatelessWidget {
                 width: 40,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.outline.withOpacity(0.3),
+                  color: theme.colorScheme.outline.withValues(alpha: 0.3),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -51,7 +51,7 @@ class ImageAttachmentField extends StatelessWidget {
                   leading: Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.primary.withOpacity(0.1),
+                      color: theme.colorScheme.primary.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Icon(
@@ -77,7 +77,7 @@ class ImageAttachmentField extends StatelessWidget {
                   leading: Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.secondary.withOpacity(0.1),
+                      color: theme.colorScheme.secondary.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Icon(
@@ -134,7 +134,7 @@ class ImageAttachmentField extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
               color: hasImage
-                  ? theme.colorScheme.primary.withOpacity(0.3)
+                  ? theme.colorScheme.primary.withValues(alpha: 0.3)
                   : theme.colorScheme.outlineVariant,
             ),
           ),

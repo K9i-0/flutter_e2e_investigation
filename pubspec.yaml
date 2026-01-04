@@ -62,6 +62,7 @@ dependencies:
   json_annotation: ^4.9.0
   talker_flutter: ^5.1.9
   talker_riverpod_logger: ^5.0.1
+  vector_math: ^2.2.0
 
 dev_dependencies:
   flutter_test:

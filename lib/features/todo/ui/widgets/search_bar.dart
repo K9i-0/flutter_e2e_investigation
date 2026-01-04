@@ -35,7 +35,7 @@ class _TodoSearchBarState extends State<TodoSearchBar> {
             boxShadow: _isFocused
                 ? [
                     BoxShadow(
-                      color: theme.colorScheme.primary.withOpacity(0.1),
+                      color: theme.colorScheme.primary.withValues(alpha: 0.1),
                       blurRadius: 8,
                       offset: const Offset(0, 2),
                     ),

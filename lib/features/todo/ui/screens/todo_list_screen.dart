@@ -35,11 +35,11 @@ class _TodoListScreenState extends ConsumerState<TodoListScreen> {
       PageRouteBuilder(
         transitionDuration: const Duration(milliseconds: 300),
         reverseTransitionDuration: const Duration(milliseconds: 250),
-        pageBuilder: (_, __, ___) => TodoEditScreen(
+        pageBuilder: (_, _, _) => TodoEditScreen(
           todo: todo,
           initialCategoryId: initialCategoryId,
         ),
-        transitionsBuilder: (_, animation, __, child) {
+        transitionsBuilder: (_, animation, _, child) {
           return FadeTransition(
             opacity: animation,
             child: SlideTransition(
@@ -172,7 +172,7 @@ class _TodoListScreenState extends ConsumerState<TodoListScreen> {
                 ),
               ),
               loading: () => const SizedBox(height: 48),
-              error: (_, __) => const SizedBox(height: 48),
+              error: (_, _) => const SizedBox(height: 48),
             ),
 
             const SizedBox(height: 16),
@@ -278,7 +278,7 @@ class _TodoListScreenState extends ConsumerState<TodoListScreen> {
               width: 120,
               height: 120,
               decoration: BoxDecoration(
-                color: theme.colorScheme.primary.withOpacity(0.1),
+                color: theme.colorScheme.primary.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(

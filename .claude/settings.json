@@ -26,6 +26,7 @@
   },
   "permissions": {
     "allow": [
+      "Edit",
       "Bash(cat:*)",
       "Bash(ls:*)",
       "Bash(tree:*)",

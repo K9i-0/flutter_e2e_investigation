@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:vector_math/vector_math_64.dart' show Vector3;
 
 import '../../data/models/category.dart';
 import '../../data/models/todo.dart';
@@ -42,7 +43,7 @@ class _TodoTileState extends State<TodoTile> {
         onTap: widget.onTap,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 100),
-          transform: Matrix4.identity()..scale(_isPressed ? 0.98 : 1.0),
+          transform: Matrix4.identity()..scaleByVector3(Vector3(_isPressed ? 0.98 : 1.0, _isPressed ? 0.98 : 1.0, 1.0)),
           transformAlignment: Alignment.center,
           margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
           decoration: BoxDecoration(
@@ -50,7 +51,7 @@ class _TodoTileState extends State<TodoTile> {
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
               color: todo.isCompleted
-                  ? theme.colorScheme.primary.withOpacity(0.3)
+                  ? theme.colorScheme.primary.withValues(alpha: 0.3)
                   : theme.colorScheme.outlineVariant,
               width: 1,
             ),
@@ -188,7 +189,7 @@ class _TodoTileState extends State<TodoTile> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: category.color.withOpacity(0.15),
+        color: category.color.withValues(alpha: 0.15),
         borderRadius: BorderRadius.circular(6),
       ),
       child: Row(
@@ -222,7 +223,7 @@ class _TodoTileState extends State<TodoTile> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.15),
+        color: color.withValues(alpha: 0.15),
         borderRadius: BorderRadius.circular(6),
       ),
       child: Row(

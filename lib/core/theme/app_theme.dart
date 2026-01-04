@@ -50,7 +50,6 @@ class AppTheme {
 
   static ThemeData _buildTheme(ColorScheme colorScheme, Brightness brightness) {
     final textTheme = _buildTextTheme(colorScheme);
-    final isDark = brightness == Brightness.dark;
 
     return ThemeData(
       useMaterial3: true,

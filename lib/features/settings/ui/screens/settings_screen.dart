@@ -173,7 +173,7 @@ class SettingsScreen extends ConsumerWidget {
                       title: l10n.defaultCategory,
                       isLast: true,
                     ),
-                    error: (_, __) => SettingsTile(
+                    error: (_, _) => SettingsTile(
                       title: l10n.defaultCategory,
                       isLast: true,
                     ),
