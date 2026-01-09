@@ -44,3 +44,6 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 .claude/settings.local.json
+
+# Maestro samples (large binaries)
+samples/

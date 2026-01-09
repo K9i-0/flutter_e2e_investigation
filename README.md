@@ -141,6 +141,27 @@ AIエージェントを並列稼働させるには、人間がボトルネック
 
 モバイル自動化MCPには [Maestro MCP](https://github.com/mobile-next/maestro-mcp) と [Mobile MCP](https://github.com/mobile-next/mobile-mcp) があります。
 
+#### アーキテクチャの違い
+
+| 項目 | Maestro MCP | Mobile MCP |
+|------|-------------|------------|
+| **方式** | デバイスにパッケージインストール | ADBコマンド直接実行 |
+| **通信** | gRPC (port 7001) | 毎回ADBプロセス起動 |
+| **要素取得** | Accessibility API直接アクセス | `uiautomator dump` 経由 |
+
+#### パッケージ方式のメリット（Maestro）
+
+1. **パフォーマンス**: gRPC常時接続は低レイテンシ
+2. **高度な機能**: スマートな待機、複雑なジェスチャー、状態監視
+3. **信頼性**: 内部API使用で安定
+4. **セレクターの柔軟性**: 複数条件の組み合わせ
+
+#### ADB方式のメリット（Mobile MCP）
+
+1. **セットアップ不要**: Driver起動問題がない
+2. **シンプル**: ADBさえ動けばOK
+3. **確実性**: トラブル時のフォールバックとして有効
+
 #### 機能比較
 
 | 機能 | Maestro MCP | Mobile MCP |
@@ -180,6 +201,45 @@ AIエージェントを並列稼働させるには、人間がボトルネック
    - 既存のE2EシナリオをMCPから直接実行可能
 
 **結論**: 汎用ツールとしては一長一短だが、Flutter E2Eテストの知見蓄積が目的の本プロジェクトでは Maestro MCP が最適。
+Mobile MCPはトラブルシューティング時のフォールバックとして併用。
+
+### Troubleshooting
+
+#### Maestro MCP が Android で動作しない（port 7001 Connection refused）
+
+Maestro MCPは Android 上で `dev.mobile.maestro` パッケージ（Maestro Driver）を起動して通信しますが、
+自動起動に失敗する場合があります。
+
+**症状**:
+```
+UNAVAILABLE: io exception
+Connection refused: localhost/[0:0:0:0:0:0:0:1]:7001
+```
+
+**確認方法**:
+```bash
+# Driver がインストールされているか確認
+adb shell pm list instrumentation | grep maestro
+# → instrumentation:dev.mobile.maestro.test/... が表示されればOK
+
+# Driver プロセスが動いているか確認
+adb shell ps -A | grep maestro
+# → 何も表示されなければ Driver が起動していない
+```
+
+**解決方法**:
+```bash
+# Maestro Driver を手動起動
+adb shell am instrument -w -e debug false \
+  dev.mobile.maestro.test/androidx.test.runner.AndroidJUnitRunner &
+
+# ポート 7001 が LISTEN しているか確認
+adb shell netstat -tlnp | grep 7001
+```
+
+**補足**:
+- `maestro` CLI で作成した AVD（例: `Maestro_Pixel_6_API_30`）には Driver がプリインストールされている
+- 新規 AVD では最初の Maestro テスト実行時に自動インストールされるが、起動は手動が必要な場合がある
 
 ### Self Review（セルフレビュー）
 - **Gemini CLI**: 外部モデル視点でのレビュー
@@ -274,6 +334,44 @@ Claude:
   - 画像添付
   - 検索・フィルター
 
+## Emulator Optimization
+
+E2Eテスト用にエミュレーター/シミュレーターを最適化するスクリプトを提供しています。
+
+### scripts/
+
+| スクリプト | 説明 |
+|-----------|------|
+| `setup_e2e_emulator.sh` | E2E専用の軽量AVD作成（不要なセンサー無効化） |
+| `create_snapshot.sh` | 起動済み状態のスナップショット作成（高速起動用） |
+| `start_emulator.sh` | エミュレーター起動（dev/ci/coldモード切替） |
+| `ios_simulator.sh` | iOSシミュレーター管理（ステータスバー固定） |
+| `start_e2e_env.sh` | 統合起動スクリプト |
+
+### 起動モード
+
+```bash
+# 開発モード（GUI表示、GPU=auto）
+./scripts/start_emulator.sh dev
+
+# CIモード（ヘッドレス、GPU=swiftshader）
+./scripts/start_emulator.sh ci
+
+# コールドブート（スナップショット不使用）
+./scripts/start_emulator.sh cold
+```
+
+### パフォーマンス比較
+
+| 指標 | dev モード | ci モード |
+|------|-----------|----------|
+| CPU使用率 | 約15% | 約3.5% |
+| 起動時間（スナップショット） | 約3秒 | 約3秒 |
+| 起動時間（コールドブート） | 約13秒 | 約13秒 |
+
+**注意**: dev/ci モードでGPUモードが異なるため、スナップショットの互換性がありません。
+モード別に専用AVDを用意するか、モード変更時はコールドブートを使用してください。
+
 ## Setup
 
 ### Prerequisites
@@ -282,6 +380,7 @@ Claude:
 - Android Emulator / iOS Simulator
 - [Dart MCP Server](https://github.com/dart-lang/ai/tree/main/pkgs/dart_mcp_server)
 - [Maestro MCP](https://github.com/mobile-next/maestro-mcp)
+- [Mobile MCP](https://github.com/mobile-next/mobile-mcp) (フォールバック用)
 
 ### MCP Configuration
 
