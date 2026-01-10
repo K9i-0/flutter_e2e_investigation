@@ -1,4 +1,4 @@
-# Flutter E2E Investigation
+# Flutter Claude Sandbox
 
 [🇯🇵 日本語版 / Japanese](./README.md)
 
